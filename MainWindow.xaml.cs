@@ -1,41 +1,151 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
 namespace SilentInstaller
 {
     public partial class MainWindow : Window
     {
+        private List<Category> Categories;
+        private int currentCategoryIndex = 0;
+
         public MainWindow()
         {
             InitializeComponent();
+            InitializeCategories();
+            UpdateCategoryDisplay();
         }
 
-        private void PreviousInstaller_Click(object sender, RoutedEventArgs e)
+        private void InitializeCategories()
         {
-            // Logic to switch to previous installer type
-            //InstallerType.Text = "Avon Data";
+            Categories = new List<Category>
+            {
+                new Category("MH Laptop", "data/girl.png", new List<App>
+                {
+                    new App("Chrome", "data/girl.png"),
+                    new App("Notepad++", "data/girl.png"),
+                    new App("7-Zip", "data/girl.png"),
+                    new App("VLC", "data/girl.png"),
+                    new App("WinRAR", "data/girl.png")
+                }),
+                new Category("HO Laptop", "data/crackblue.png", new List<App>
+                {
+                    new App("VS Code", "data/crackblue.png"),
+                    new App("Git", "data/crackblue.png"),
+                    new App("Node.js", "data/crackblue.png"),
+                    new App("Docker", "data/crackblue.png"),
+                    new App("Postman", "data/crackblue.png")
+                })
+                // Add more categories as needed
+            };
         }
 
-        private void NextInstaller_Click(object sender, RoutedEventArgs e)
+        private void UpdateCategoryDisplay()
         {
-            // Logic to switch to next installer type
-            //InstallerType.Text = "Head Office";
+            if (Categories.Count == 0) return;
+
+            Category currentCategory = Categories[currentCategoryIndex];
+            CategoryImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(currentCategory.ImagePath, UriKind.Relative));
+            CategoryTitle.Text = currentCategory.Name;
+            UpdateIncludedApps(currentCategory.Apps);
         }
 
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        private void UpdateIncludedApps(List<App> apps)
         {
-            // Switch to the installation page
-            SelectionPage.Visibility = Visibility.Collapsed;
-            InstallationPage.Visibility = Visibility.Visible;
+            IncludedAppsGrid.Children.Clear();
+            IncludedAppsGrid.RowDefinitions.Clear();
+            IncludedAppsGrid.ColumnDefinitions.Clear();
 
-            // Start installation process (you'll need to add the actual logic)
-            //StatusMessage.Text = "Installation in progress...";
+            for (int i = 0; i < 2; i++)
+                IncludedAppsGrid.RowDefinitions.Add(new RowDefinition());
+
+            for (int i = 0; i < 5; i++)
+                IncludedAppsGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+            for (int i = 0; i < apps.Count && i < 10; i++)
+            {
+                int row = i / 5;
+                int col = i % 5;
+
+                StackPanel appPanel = new StackPanel { Orientation = Orientation.Vertical, HorizontalAlignment = HorizontalAlignment.Center };
+                Image appImage = new Image
+                {
+                    Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(apps[i].LogoPath, UriKind.Relative)),
+                    Width = 50,
+                    Height = 50
+                };
+                TextBlock appName = new TextBlock
+                {
+                    Text = apps[i].Name,
+                    Foreground = System.Windows.Media.Brushes.White,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                appPanel.Children.Add(appImage);
+                appPanel.Children.Add(appName);
+
+                Grid.SetRow(appPanel, row);
+                Grid.SetColumn(appPanel, col);
+                IncludedAppsGrid.Children.Add(appPanel);
+            }
         }
 
-        private void AbortButton_Click(object sender, RoutedEventArgs e)
+        private void NextCategory_Click(object sender, RoutedEventArgs e)
         {
-            // Logic to abort installation
-            MessageBox.Show("Installation Aborted!", "Silent Installer", MessageBoxButton.OK, MessageBoxImage.Warning);
+            currentCategoryIndex = (currentCategoryIndex + 1) % Categories.Count;
+            ApplyFadeAnimation();
+        }
+
+        private void PreviousCategory_Click(object sender, RoutedEventArgs e)
+        {
+            currentCategoryIndex = (currentCategoryIndex - 1 + Categories.Count) % Categories.Count;
+            ApplyFadeAnimation();
+        }
+
+        private void ApplyFadeAnimation()
+        {
+            DoubleAnimation fadeOut = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.3));
+            DoubleAnimation fadeIn = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.3));
+
+            fadeOut.Completed += (s, e) =>
+            {
+                UpdateCategoryDisplay();
+                CategoryImage.BeginAnimation(OpacityProperty, fadeIn);
+                CategoryTitle.BeginAnimation(OpacityProperty, fadeIn);
+                IncludedAppsGrid.BeginAnimation(OpacityProperty, fadeIn);
+            };
+
+            CategoryImage.BeginAnimation(OpacityProperty, fadeOut);
+            CategoryTitle.BeginAnimation(OpacityProperty, fadeOut);
+            IncludedAppsGrid.BeginAnimation(OpacityProperty, fadeOut);
+        }
+    }
+
+    public class Category
+    {
+        public string Name { get; set; }
+        public string ImagePath { get; set; }
+        public List<App> Apps { get; set; }
+
+        public Category(string name, string imagePath, List<App> apps)
+        {
+            Name = name;
+            ImagePath = imagePath;
+            Apps = apps;
+        }
+    }
+
+    public class App
+    {
+        public string Name { get; set; }
+        public string LogoPath { get; set; }
+
+        public App(string name, string logoPath)
+        {
+            Name = name;
+            LogoPath = logoPath;
         }
     }
 }

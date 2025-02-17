@@ -10,14 +10,22 @@
 
   <ItemGroup>
     <None Remove="data\background.png" />
+    <None Remove="data\crackblue.png" />
     <None Remove="data\fullers-logo.png" />
+    <None Remove="data\girl.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="data\background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="data\crackblue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="data\fullers-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\girl.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
