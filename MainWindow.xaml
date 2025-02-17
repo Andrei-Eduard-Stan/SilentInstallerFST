@@ -47,7 +47,7 @@
 
             <!-- Background Image -->
             <Grid.Background>
-                <ImageBrush ImageSource="data/background.png"/>
+                <ImageBrush Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" ImageSource="data/background.png"/>
             </Grid.Background>
 
             <!-- Overlay -->
@@ -71,7 +71,22 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Select the applications you want to install" Foreground="White" FontSize="16" FontWeight="DemiBold" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>                                
+                <TextBlock Text="Select Setup Type:" Foreground="White" FontSize="24" FontWeight="DemiBold" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="◀" Width="40" Height="40" Grid.Row="1" Grid.Column="0"
+                    HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" Foreground="White" FontSize="24" BorderThickness="0"/>
+                <!-- Display Area -->
+                <Border BorderBrush="Black" BorderThickness="2"  Grid.Column="1" Grid.Row="1">
+                    <StackPanel HorizontalAlignment="Center">
+                        <Image Name="CategoryImage" Width="100" Height="100" Margin="0,10,0,10"/>
+                        <TextBlock Name="CategoryTitle" FontSize="18" FontWeight="Bold"
+                               HorizontalAlignment="Center"/>
+                        <TextBlock Name="CategoryDescription" FontSize="14"
+                               TextAlignment="Center" Margin="10"/>
+                    </StackPanel>
+                </Border>
+                <Button Content="▶" Width="40" Height="40" Grid.Row="1" Grid.Column="2"
+    HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Foreground="White" FontSize="24" BorderThickness="0"/>
+                <TextBlock Name="TextDescription" Text="Dummy" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="White"></TextBlock>
             </Grid>
 
             <!-- Included Apps -->
