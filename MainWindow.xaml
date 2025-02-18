@@ -86,10 +86,9 @@
             <!--  Carousel Container  -->
             <Grid Grid.Row="2" Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-
+                    <RowDefinition/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -97,14 +96,12 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock
-                    Grid.Row="0"
-                    Grid.ColumnSpan="3"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="24"
                     FontWeight="DemiBold"
                     Foreground="White"
-                    Text="Select Setup Type:" />
+                    Text="Select Setup Type:" Grid.ColumnSpan="3" Grid.Row="0"/>
                 <Button
                     Grid.Row="1"
                     Grid.Column="0"
@@ -118,31 +115,41 @@
                     Content="◀"
                     FontSize="24"
                     Foreground="White"
-                    Template="{StaticResource NoMouseOverButtonTemplate}" />
-                <Border
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    BorderBrush="Black"
-                    BorderThickness="2">
-                    <StackPanel HorizontalAlignment="Center">
-                        <Image
-                            Name="CategoryImage"
-                            Width="100"
-                            Height="100"
-                            Margin="0,10,0,10" />
-                        <TextBlock
-                            Name="CategoryTitle"
-                            HorizontalAlignment="Center"
-                            FontSize="18"
-                            FontWeight="Bold" />
-                    </StackPanel>
-                </Border>
+                    Template="{StaticResource NoMouseOverButtonTemplate}" Grid.RowSpan="2" />
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!-- Category Image -->
+                        <Image Grid.Row="0"
+            Name="CategoryImage"
+            Stretch="Uniform"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            MaxWidth="150"
+            MaxHeight="150"
+            Margin="0,10,0,10" />
+
+                        <!-- Category Title -->
+                    <TextBlock Grid.Row="1"
+            Name="CategoryTitle"
+            HorizontalAlignment="Center"
+            TextAlignment="Center"
+            FontSize="18"
+            FontWeight="Bold"
+            TextWrapping="Wrap"
+            Width="Auto"
+                               Foreground="White"
+                               />
+                </Grid>
+
                 <Button
                     Grid.Row="1"
                     Grid.Column="2"
                     Width="40"
                     Height="40"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Background="Transparent"
                     BorderThickness="0"
@@ -150,21 +157,22 @@
                     Content="▶"
                     FontSize="24"
                     Foreground="White"
-                    Template="{StaticResource NoMouseOverButtonTemplate}" />
+                    Template="{StaticResource NoMouseOverButtonTemplate}" Margin="93,0,0,0" Grid.RowSpan="2" />
                 <TextBlock
                     Name="CategoryDescription"
-                    Grid.Row="2"
-                    Grid.ColumnSpan="3"
+                    Grid.Row="3"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="18"
                     Foreground="White"
-                    Text="Dummy" />
+                    TextWrapping="Wrap"
+                    TextAlignment="Center"
+                    Width="Auto" Grid.ColumnSpan="3"/>
             </Grid>
 
             <!--  Included Apps  -->
             <Grid
-                Name="IncludedAppsGrid"
+                Name="IncludedAppsList"
                 Grid.Row="2"
                 Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -188,6 +196,7 @@
                     FontWeight="DemiBold"
                     Foreground="White"
                     Text="Included Applications:" />
+                <Grid Name="IncludedAppsGrid" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="5"></Grid>
             </Grid>
             <!--  Start Button  -->
             <Button

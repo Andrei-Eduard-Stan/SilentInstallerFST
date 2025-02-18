@@ -22,21 +22,27 @@ namespace SilentInstaller
         {
             Categories = new List<Category>
             {
-                new Category("MH Laptop", "data/girl.png", new List<App>
+                new Category("MH Laptop", "data/mhlogo.png", "Default software for the laptops used by managed houses.", new List<App>
                 {
-                    new App("Chrome", "data/girl.png"),
-                    new App("Notepad++", "data/girl.png"),
-                    new App("7-Zip", "data/girl.png"),
-                    new App("VLC", "data/girl.png"),
-                    new App("WinRAR", "data/girl.png")
+                    new App("Acrobat Reader", "data/acrobatreader.png"),
+                    new App("Google Chrome", "data/chrome_logo.png"),
+                    new App("GlobalProtect", "data/globalprotect.png"),
+                    new App("Logmein", "data/logmein.png"),
+                    new App("SupportAssist", "data/dell.png"),
                 }),
-                new Category("HO Laptop", "data/crackblue.png", new List<App>
+                new Category("HO Laptop", "data/mhlogo.png", "Default software for the laptops used by Head Office.", new List<App>
                 {
-                    new App("VS Code", "data/crackblue.png"),
-                    new App("Git", "data/crackblue.png"),
-                    new App("Node.js", "data/crackblue.png"),
-                    new App("Docker", "data/crackblue.png"),
-                    new App("Postman", "data/crackblue.png")
+                    new App("Acrobat Reader", "data/acrobatreader.png"),
+                    new App("Google Chrome", "data/chrome_logo.png"),
+                    new App("GlobalProtect", "data/globalprotect.png"),
+                    new App("Logmein", "data/logmein.png"),
+                    new App("SupportAssist", "data/dell.png"),
+                    new App("VLC", "data/girl.png"),
+                    new App("WinRAR", "data/girl.png"),
+                    new App("Chrome1", "data/girl.png"),
+                    new App("Notepad1++", "data/girl.png"),
+                    new App("7-Zip1", "data/girl.png"),
+                    new App("VLC1", "data/girl.png"),
                 })
                 // Add more categories as needed
             };
@@ -49,6 +55,7 @@ namespace SilentInstaller
             Category currentCategory = Categories[currentCategoryIndex];
             CategoryImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(currentCategory.ImagePath, UriKind.Relative));
             CategoryTitle.Text = currentCategory.Name;
+            CategoryDescription.Text= currentCategory.Description;
             UpdateIncludedApps(currentCategory.Apps);
         }
 
@@ -114,11 +121,13 @@ namespace SilentInstaller
                 UpdateCategoryDisplay();
                 CategoryImage.BeginAnimation(OpacityProperty, fadeIn);
                 CategoryTitle.BeginAnimation(OpacityProperty, fadeIn);
+                CategoryDescription.BeginAnimation(OpacityProperty, fadeIn);
                 IncludedAppsGrid.BeginAnimation(OpacityProperty, fadeIn);
             };
 
             CategoryImage.BeginAnimation(OpacityProperty, fadeOut);
             CategoryTitle.BeginAnimation(OpacityProperty, fadeOut);
+            CategoryDescription.BeginAnimation(OpacityProperty, fadeOut);
             IncludedAppsGrid.BeginAnimation(OpacityProperty, fadeOut);
         }
     }
@@ -127,13 +136,15 @@ namespace SilentInstaller
     {
         public string Name { get; set; }
         public string ImagePath { get; set; }
+        public string Description { get; set; }
         public List<App> Apps { get; set; }
 
-        public Category(string name, string imagePath, List<App> apps)
+        public Category(string name, string imagePath, string description, List<App> apps)
         {
             Name = name;
             ImagePath = imagePath;
             Apps = apps;
+            Description = description;
         }
     }
 
