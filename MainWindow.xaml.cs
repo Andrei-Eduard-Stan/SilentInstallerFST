@@ -4,10 +4,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using MahApps.Metro.Controls;
 
 namespace SilentInstaller
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private List<Category> Categories;
         private int currentCategoryIndex = 0;
