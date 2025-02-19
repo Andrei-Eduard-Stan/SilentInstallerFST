@@ -5,7 +5,10 @@
     Title="Silent Installer"
     Width="800"
     Height="500"
-    Background="White">
+    Padding="15px"
+    AllowsTransparency="True"
+    Background="Transparent"
+    WindowStyle="None">
 
     <Window.Resources>
 
@@ -27,318 +30,370 @@
     </Window.Resources>
 
     <Grid>
-
-        <Border
-            Background="White"
-            BorderBrush="Gray"
-            BorderThickness="0.3"
-            CornerRadius="5" />
-
-        <!--  Page 1: Selection Screen  -->
-        <Grid Name="SelectionPage">
-
-            <!--  Grid Layout  -->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-
-            <!--  Background Image  -->
+        <Grid>
             <Grid.Background>
-                <ImageBrush
-                    AlignmentX="Center"
-                    AlignmentY="Center"
-                    ImageSource="/data/girl.png"
-                    Stretch="UniformToFill" />
+                <ImageBrush ImageSource="/data/girlmod.png" />
             </Grid.Background>
 
-            <!--  Overlay  -->
-            <Rectangle
-                Grid.RowSpan="4"
-                Grid.ColumnSpan="2"
-                Fill="#DA000000"
-                Stroke="Black" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40px" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.RowSpan="2"
+                Background="Transparent"
+                BorderBrush="Gray"
+                BorderThickness="0.3"
+                CornerRadius="5" />
+            <!--  Custom Title Bar  -->
+            <Grid
+                Height="40"
+                VerticalAlignment="Top"
+                MouseDown="MoveWindow">
+                <TextBlock
+                    Padding="15,5,15,5"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="White"
+                    Text="Silent Installer" />
+                <Button
+                    Margin="0,0,15,0"
+                    HorizontalAlignment="Right"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="CloseApp"
+                    Content="✖"
+                    Foreground="White"
+                    Template="{StaticResource NoMouseOverButtonTemplate}" />
+            </Grid>
 
-            <!--  Logo & Title  -->
-            <Image
-                Grid.Row="0"
-                Grid.ColumnSpan="2"
-                Height="80"
-                VerticalAlignment="Center"
-                Source="data/fullers-logo.png" />
-            <TextBlock
-                Grid.Row="1"
-                Grid.ColumnSpan="2"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="24"
-                FontWeight="DemiBold"
-                Foreground="White"
-                Text="Silent Installer"
-                TextAlignment="Center" />
+            <!--  Page 1: Selection Screen  -->
+            <Grid Name="SelectionPage" Grid.Row="1">
 
-            <!--  Carousel Container  -->
-            <Grid Grid.Row="2" Grid.Column="0">
+                <!--  Grid Layout  -->
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
+
+                <!--  Logo & Title  -->
+                <Image
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Height="80"
+                    VerticalAlignment="Center"
+                    Source="data/fullers-logo.png" />
                 <TextBlock
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="24"
                     FontWeight="DemiBold"
                     Foreground="White"
-                    Text="Select Setup Type:" Grid.ColumnSpan="3" Grid.Row="0"/>
-                <Button
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Width="40"
-                    Height="40"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Click="PreviousCategory_Click"
-                    Content="◀"
-                    FontSize="24"
-                    Foreground="White"
-                    Template="{StaticResource NoMouseOverButtonTemplate}" Grid.RowSpan="2" />
-                <Grid Grid.Column="1" Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"></RowDefinition>
-                        <RowDefinition Height="1*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <!-- Category Image -->
-                        <Image Grid.Row="0"
-            Name="CategoryImage"
-            Stretch="Uniform"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            MaxWidth="150"
-            MaxHeight="150"
-            Margin="0,10,0,10" />
+                    Text="Silent Installer"
+                    TextAlignment="Center" />
 
-                        <!-- Category Title -->
-                    <TextBlock Grid.Row="1"
-            Name="CategoryTitle"
-            HorizontalAlignment="Center"
-            TextAlignment="Center"
-            FontSize="18"
-            FontWeight="Bold"
-            TextWrapping="Wrap"
-            Width="Auto"
-                               Foreground="White"
-                               />
+                <!--  Carousel Container  -->
+                <Grid
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="10,5,10,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.ColumnSpan="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        FontWeight="DemiBold"
+                        Foreground="White"
+                        Text="Select Setup Type:" />
+                    <Button
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Width="40"
+                        Height="40"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="PreviousCategory_Click"
+                        Content="◀"
+                        FontSize="24"
+                        Foreground="White"
+                        Template="{StaticResource NoMouseOverButtonTemplate}" />
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <!--  Category Image  -->
+                        <Image
+                            Name="CategoryImage"
+                            Grid.Row="0"
+                            MaxWidth="150"
+                            MaxHeight="150"
+                            Margin="0,10,0,10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Stretch="Uniform" />
+
+                        <!--  Category Title  -->
+                        <TextBlock
+                            Name="CategoryTitle"
+                            Grid.Row="1"
+                            Width="Auto"
+                            HorizontalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+                    </Grid>
+
+                    <Button
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="2"
+                        Width="40"
+                        Height="40"
+                        Margin="93,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="NextCategory_Click"
+                        Content="▶"
+                        FontSize="24"
+                        Foreground="White"
+                        Template="{StaticResource NoMouseOverButtonTemplate}" />
+                    <TextBlock
+                        Name="CategoryDescription"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="3"
+                        Width="Auto"
+                        Padding="25,0,25,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        Foreground="White"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
                 </Grid>
 
+                <!--  Included Apps  -->
+                <Grid
+                    Name="IncludedAppsList"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="10,5,10,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.ColumnSpan="5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        FontWeight="DemiBold"
+                        Foreground="White"
+                        Text="Included Applications:" />
+                    <Grid
+                        Name="IncludedAppsGrid"
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.ColumnSpan="5" />
+                </Grid>
+                <!--  Start Button  -->
                 <Button
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    Width="40"
-                    Height="40"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Click="NextCategory_Click"
-                    Content="▶"
-                    FontSize="24"
-                    Foreground="White"
-                    Template="{StaticResource NoMouseOverButtonTemplate}" Margin="93,0,0,0" Grid.RowSpan="2" />
-                <TextBlock
-                    Name="CategoryDescription"
                     Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    Width="100"
+                    Height="40"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    FontSize="18"
+                    Background="#00DDDDDD"
+                    BorderBrush="White"
+                    FontSize="16"
+                    FontWeight="Bold"
                     Foreground="White"
-                    TextWrapping="Wrap"
-                    TextAlignment="Center"
-                    Width="Auto" Grid.ColumnSpan="3"/>
+                    RenderTransformOrigin="0.5,0.5"
+                    Template="{StaticResource NoMouseOverButtonTemplate}">
+
+                    <Button.Content>
+                        <TextBlock Text="Start" />
+                    </Button.Content>
+
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+
+                        <Style TargetType="Button">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    To="White"
+                                                    Duration="0:0:0.15" />
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                                                    To="Gray"
+                                                    Duration="0:0:0.15" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                    To="1.2"
+                                                    Duration="0:0:0.15" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                    To="1.2"
+                                                    Duration="0:0:0.15" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    To="#00DDDDDD"
+                                                    Duration="0:0:0.3" />
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                                                    To="White"
+                                                    Duration="0:0:0.3" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                    To="1"
+                                                    Duration="0:0:0.3" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                    To="1"
+                                                    Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
+
+                    <Button.RenderTransform>
+                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                    </Button.RenderTransform>
+                </Button>
+
             </Grid>
 
-            <!--  Included Apps  -->
+            <!--  Page 2: Installation Progress  -->
             <Grid
-                Name="IncludedAppsList"
-                Grid.Row="2"
-                Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                Name="InstallationPage"
+                Grid.ColumnSpan="3"
+                Visibility="Hidden">
+                <Image
+                    Height="80"
+                    Margin="0,20,0,0"
+                    VerticalAlignment="Top"
+                    Source="data/fullers-logo.png" />
                 <TextBlock
-                    Grid.Row="0"
-                    Grid.ColumnSpan="5"
+                    Margin="0,100,0,0"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
                     FontSize="24"
-                    FontWeight="DemiBold"
-                    Foreground="White"
-                    Text="Included Applications:" />
-                <Grid Name="IncludedAppsGrid" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="5"></Grid>
+                    FontWeight="Bold"
+                    Text="Silent Installer" />
+
+                <!--  Progress Bar  -->
+                <ProgressBar
+                    Name="InstallProgress"
+                    Width="500"
+                    Height="20"
+                    Margin="0,150,0,0"
+                    HorizontalAlignment="Center" />
+
+                <!--  Status Message  -->
+                <TextBlock
+                    Margin="0,180,0,0"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    Text="Custom Message saying state of installation..." />
+
+                <!--  Log Output  -->
+                <TextBox
+                    Name="OutputLog"
+                    Width="500"
+                    Height="150"
+                    Margin="0,220,0,0"
+                    HorizontalAlignment="Center" />
+
+                <!--  Abort Button  -->
+                <Button
+                    Width="100"
+                    Height="40"
+                    Margin="0,400,0,0"
+                    HorizontalAlignment="Center"
+                    Background="Gold"
+                    Content="Abort"
+                    FontSize="16"
+                    FontWeight="Bold" />
             </Grid>
-            <!--  Start Button  -->
-            <Button
-                Grid.Row="3"
-                Grid.ColumnSpan="2"
-                Width="100"
-                Height="40"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="#00DDDDDD"
-                BorderBrush="White"
-                FontSize="16"
-                FontWeight="Bold"
-                Foreground="White"
-                RenderTransformOrigin="0.5,0.5"
-                Template="{StaticResource NoMouseOverButtonTemplate}">
 
-                <Button.Content>
-                    <TextBlock Text="Start" />
-                </Button.Content>
-
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="5" />
-                    </Style>
-
-                    <Style TargetType="Button">
-                        <Setter Property="RenderTransform">
-                            <Setter.Value>
-                                <ScaleTransform ScaleX="1" ScaleY="1" />
-                            </Setter.Value>
-                        </Setter>
-
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation
-                                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                                To="White"
-                                                Duration="0:0:0.15" />
-                                            <ColorAnimation
-                                                Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
-                                                To="Gray"
-                                                Duration="0:0:0.15" />
-                                            <DoubleAnimation
-                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                To="1.2"
-                                                Duration="0:0:0.15" />
-                                            <DoubleAnimation
-                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                To="1.2"
-                                                Duration="0:0:0.15" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation
-                                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                                To="#00DDDDDD"
-                                                Duration="0:0:0.3" />
-                                            <ColorAnimation
-                                                Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
-                                                To="White"
-                                                Duration="0:0:0.3" />
-                                            <DoubleAnimation
-                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                To="1"
-                                                Duration="0:0:0.3" />
-                                            <DoubleAnimation
-                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                To="1"
-                                                Duration="0:0:0.3" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Resources>
-
-                <Button.RenderTransform>
-                    <ScaleTransform ScaleX="1" ScaleY="1" />
-                </Button.RenderTransform>
-            </Button>
-
-        </Grid>
-
-        <!--  Page 2: Installation Progress  -->
-        <Grid
-            Name="InstallationPage"
-            Grid.ColumnSpan="3"
-            Visibility="Hidden">
-            <Image
-                Height="80"
-                Margin="0,20,0,0"
-                VerticalAlignment="Top"
-                Source="data/fullers-logo.png" />
-            <TextBlock
-                Margin="0,100,0,0"
-                HorizontalAlignment="Center"
-                FontSize="24"
-                FontWeight="Bold"
-                Text="Silent Installer" />
-
-            <!--  Progress Bar  -->
-            <ProgressBar
-                Name="InstallProgress"
-                Width="500"
-                Height="20"
-                Margin="0,150,0,0"
-                HorizontalAlignment="Center" />
-
-            <!--  Status Message  -->
-            <TextBlock
-                Margin="0,180,0,0"
-                HorizontalAlignment="Center"
-                FontSize="14"
-                Text="Custom Message saying state of installation..." />
-
-            <!--  Log Output  -->
-            <TextBox
-                Name="OutputLog"
-                Width="500"
-                Height="150"
-                Margin="0,220,0,0"
-                HorizontalAlignment="Center" />
-
-            <!--  Abort Button  -->
-            <Button
-                Width="100"
-                Height="40"
-                Margin="0,400,0,0"
-                HorizontalAlignment="Center"
-                Background="Gold"
-                Content="Abort"
-                FontSize="16"
-                FontWeight="Bold" />
+            <!--  Completion Screen  -->
+            <Grid
+                Name="CompletionPage"
+                Opacity="0"
+                Visibility="Hidden">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="24"
+                    Text="Installation Complete!" />
+                <Button
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Content="Restart" />
+                <Button
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Content="Close" />
+            </Grid>
         </Grid>
     </Grid>
 </Window>

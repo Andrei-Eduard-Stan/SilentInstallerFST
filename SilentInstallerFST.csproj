@@ -10,19 +10,30 @@
 
   <ItemGroup>
     <None Remove="data\acrobatreader.png" />
+    <None Remove="data\background.jfif" />
     <None Remove="data\background.png" />
     <None Remove="data\chrome_logo.png" />
     <None Remove="data\crackblue.png" />
     <None Remove="data\dell.png" />
+    <None Remove="data\download.png" />
     <None Remove="data\fullers-logo.png" />
     <None Remove="data\girl.png" />
+    <None Remove="data\girlmod.png" />
     <None Remove="data\globalprotect.png" />
+    <None Remove="data\hologo.png" />
     <None Remove="data\logmein.png" />
     <None Remove="data\mhlogo.png" />
+    <None Remove="data\mhlogo.webp" />
+    <None Remove="data\mhlogotrsp.png" />
+    <None Remove="data\Mimecast_Logo.png" />
+    <None Remove="data\officesetup.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="data\acrobatreader.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\background.jfif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="data\background.png">
@@ -37,19 +48,40 @@
     <Resource Include="data\dell.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="data\download.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="data\fullers-logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="data\girl.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="data\girlmod.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="data\globalprotect.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\hologo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="data\logmein.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="data\mhlogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\mhlogo.webp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\mhlogotrsp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\Mimecast_Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\officesetup.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

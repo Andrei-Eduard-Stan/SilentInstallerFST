@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 
 namespace SilentInstaller
@@ -18,11 +19,34 @@ namespace SilentInstaller
             UpdateCategoryDisplay();
         }
 
+
+        // Smooth Fade-In on Start
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var fadeIn = (Storyboard)FindResource("FadeIn");
+            this.BeginStoryboard(fadeIn);
+        }
+
+        // Move Window (Title Bar Dragging)
+        public void MoveWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        // Close Application
+        private void CloseApp(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         private void InitializeCategories()
         {
             Categories = new List<Category>
             {
-                new Category("MH Laptop", "data/mhlogo.png", "Default software for the laptops used by managed houses.", new List<App>
+                new Category("MH Laptop", "data/mhlogotrsp.png", "Default software for the laptops used by managed houses.", new List<App>
                 {
                     new App("Acrobat Reader", "data/acrobatreader.png"),
                     new App("Google Chrome", "data/chrome_logo.png"),
@@ -30,19 +54,15 @@ namespace SilentInstaller
                     new App("Logmein", "data/logmein.png"),
                     new App("SupportAssist", "data/dell.png"),
                 }),
-                new Category("HO Laptop", "data/mhlogo.png", "Default software for the laptops used by Head Office.", new List<App>
+                new Category("HO Laptop", "data/hologo.png", "Default software for the laptops used by Head Office.", new List<App>
                 {
                     new App("Acrobat Reader", "data/acrobatreader.png"),
                     new App("Google Chrome", "data/chrome_logo.png"),
                     new App("GlobalProtect", "data/globalprotect.png"),
                     new App("Logmein", "data/logmein.png"),
                     new App("SupportAssist", "data/dell.png"),
-                    new App("VLC", "data/girl.png"),
-                    new App("WinRAR", "data/girl.png"),
-                    new App("Chrome1", "data/girl.png"),
-                    new App("Notepad1++", "data/girl.png"),
-                    new App("7-Zip1", "data/girl.png"),
-                    new App("VLC1", "data/girl.png"),
+                    new App("Office Suite", "data/officesetup.png"),
+                    new App("Mimecast", "data/Mimecast_Logo.png"),
                 })
                 // Add more categories as needed
             };
@@ -76,18 +96,21 @@ namespace SilentInstaller
                 int row = i / 5;
                 int col = i % 5;
 
-                StackPanel appPanel = new StackPanel { Orientation = Orientation.Vertical, HorizontalAlignment = HorizontalAlignment.Center };
+                StackPanel appPanel = new StackPanel { Orientation = Orientation.Vertical, HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness() };
                 Image appImage = new Image
                 {
                     Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(apps[i].LogoPath, UriKind.Relative)),
-                    Width = 50,
-                    Height = 50
+                    Width = 30,
+                    Height = 30
                 };
                 TextBlock appName = new TextBlock
                 {
                     Text = apps[i].Name,
                     Foreground = System.Windows.Media.Brushes.White,
-                    HorizontalAlignment = HorizontalAlignment.Center
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    FontSize=12,
+                    TextWrapping = TextWrapping.Wrap,
+                    TextAlignment = TextAlignment.Center
                 };
 
                 appPanel.Children.Add(appImage);
