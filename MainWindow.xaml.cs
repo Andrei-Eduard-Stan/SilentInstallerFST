@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using MahApps.Metro.Controls;
 
 
@@ -23,20 +24,20 @@ namespace SilentInstaller
         private void DefineInstallationSteps(Category category)
         {
             installationSteps = new List<InstallationStep>();
-            installationSteps.Add(new InstallationStep("Acrobat Reader", $"{installerPath}\\Acrobat\\acrsetup.exe","/sAll /rs /msi EULA_ACCEPT=YES"));
-            installationSteps.Add(new InstallationStep("Google Chrome","msiexec", $"/i \"{installerPath}\\Chrome\\Installers\\GoogleChromeStandaloneEnterprise64.msi\" /quiet /norestart"));
-            installationSteps.Add(new InstallationStep("GlobalProtect","msiexec", $"/i \"{installerPath}\\PaloAlto\\GlobalProtect64-6.0.1.msi\" /quiet /norestart"));
-            installationSteps.Add(new InstallationStep("SupportAssist","msiexec", $"/i \"{installerPath}\\SupportAssist\\SupportAssistx64-4.6.3.23467.msi\" /quiet /norestart"));
+            installationSteps.Add(new InstallationStep("Acrobat Reader", $"{installerPath}\\Acrobat\\acrsetup.exe","/sAll /rs /msi EULA_ACCEPT=YES", "data/acrobatreader.png"));
+            installationSteps.Add(new InstallationStep("Google Chrome","msiexec", $"/i \"{installerPath}\\Chrome\\Installers\\GoogleChromeStandaloneEnterprise64.msi\" /quiet /norestart", "data/chrome_logo.png"));
+            installationSteps.Add(new InstallationStep("GlobalProtect","msiexec", $"/i \"{installerPath}\\PaloAlto\\GlobalProtect64-6.0.1.msi\" /quiet /norestart","data/globalprotect.png"));
+            installationSteps.Add(new InstallationStep("SupportAssist","msiexec", $"/i \"{installerPath}\\SupportAssist\\SupportAssistx64-4.6.3.23467.msi\" /quiet /norestart", "data/dell.png"));
 
             if (category.Name == "MH Laptop") {
-                installationSteps.Add(new InstallationStep("Logmein MH","msiexec", $"/i \"{installerPath}\\LMI\\logmein.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1"));
+                installationSteps.Add(new InstallationStep("Logmein MH","msiexec", $"/i \"{installerPath}\\LMI\\logmein.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
             }
 
             if (category.Name == "HO Laptop")
             {
-                installationSteps.Add(new InstallationStep("Logmein HO","msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1"));
-                installationSteps.Add(new InstallationStep("Office Suite", $"{installerPath}\\Office\\setup.exe", $"/configure \"{installerPath}\\Office\\configuration.xml\""));
-                installationSteps.Add(new InstallationStep("Mimecast","msiexec", $"/i \"{installerPath}\\Mimecast\\Mimecast.msi\" /quiet /norestart"));
+                installationSteps.Add(new InstallationStep("Logmein HO","msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
+                installationSteps.Add(new InstallationStep("Office Suite", $"{installerPath}\\Office\\setup.exe", $"/configure \"{installerPath}\\Office\\configuration.xml\"", "data/officesetup.png" ));
+                installationSteps.Add(new InstallationStep("Mimecast","msiexec", $"/i \"{installerPath}\\Mimecast\\Mimecast.msi\" /quiet /norestart", "data/Mimecast_Logo.png"));
             }
 
         }
@@ -243,7 +244,7 @@ namespace SilentInstaller
             if (Categories.Count == 0) return;
 
             Category currentCategory = Categories[currentCategoryIndex];
-            CategoryImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(currentCategory.ImagePath, UriKind.Relative));
+            CategoryImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(currentCategory.ImagePath, UriKind.RelativeOrAbsolute));
             CategoryTitle.Text = currentCategory.Name;
             CategoryDescription.Text= currentCategory.Description;
             UpdateIncludedApps(currentCategory.Apps);
@@ -309,7 +310,7 @@ namespace SilentInstaller
                 StackPanel appPanel = new StackPanel { Orientation = Orientation.Vertical, HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness() };
                 Image appImage = new Image
                 {
-                    Source = new System.Windows.Media.Imaging.BitmapImage(new Uri($"data/{installedApps[i].Name.ToLower().Replace(" ", "")}.png", UriKind.Relative)),
+                    Source = new BitmapImage(new Uri(installedApps[i].LogoPath, UriKind.RelativeOrAbsolute)),
                     Width = 30,
                     Height = 30
                 };
@@ -384,14 +385,15 @@ namespace SilentInstaller
     {
         public string Name { get; set; }
         public string Command { get; set; }
-
         public string Arguments { get; set; }
+        public string LogoPath { get; set; } // ✅ Add this
 
-        public InstallationStep(string name, string command, string arguments)
+        public InstallationStep(string name, string command, string arguments, string logoPath)
         {
             Name = name;
             Command = command;
             Arguments = arguments;
+            LogoPath = logoPath;
         }
     }
 
