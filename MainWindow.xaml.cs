@@ -29,12 +29,12 @@ namespace SilentInstaller
             installationSteps.Add(new InstallationStep("SupportAssist","msiexec", $"/i \"{installerPath}\\SupportAssist\\SupportAssistx64-4.6.3.23467.msi\" /quiet /norestart"));
 
             if (category.Name == "MH Laptop") {
-                installationSteps.Add(new InstallationStep("Logmein MH","msiexec", $"/i \"{installerPath}\\LMI\\logmein.msi\", /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1"));
+                installationSteps.Add(new InstallationStep("Logmein MH","msiexec", $"/i \"{installerPath}\\LMI\\logmein.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1"));
             }
 
             if (category.Name == "HO Laptop")
             {
-                installationSteps.Add(new InstallationStep("Logmein HO", "msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1"));
+                installationSteps.Add(new InstallationStep("Logmein HO","msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1"));
                 installationSteps.Add(new InstallationStep("Office Suite", $"{installerPath}\\Office\\setup.exe", $"/configure \"{installerPath}\\Office\\configuration.xml\""));
                 installationSteps.Add(new InstallationStep("Mimecast","msiexec", $"/i \"{installerPath}\\Mimecast\\Mimecast.msi\" /quiet /norestart"));
             }
@@ -92,10 +92,27 @@ namespace SilentInstaller
 
             // Return to the first panel
             InstallationPage.Visibility = Visibility.Collapsed;
-            SelectionPage.Visibility = Visibility.Visible;
+            AbortPage.Visibility = Visibility.Visible;
         }
 
-
+        private void GoBack_Click(object sender, RoutedEventArgs e)
+        {
+            AbortPage.Visibility=Visibility.Collapsed;
+            CompletionPage.Visibility = Visibility.Collapsed;
+            InstallationPage.Visibility = Visibility.Visible;
+        }
+        private void RestartButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("shutdown.exe", "-r -t 0");
+                AppendLog("[INFO] Restarting PC in 5 seconds...");
+            }
+            catch (Exception ex)
+            {
+                AppendLog($"[ERROR] Failed to restart: {ex.Message}");
+            }
+        }
 
         private void UpdateUI(string appName)
         {

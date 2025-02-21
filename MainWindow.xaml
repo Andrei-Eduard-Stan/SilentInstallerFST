@@ -79,7 +79,7 @@
             <Grid
                 x:Name="SelectionPage"
                 Grid.Row="1"
-                Visibility="Hidden">
+                Visibility="Visible">
 
                 <!--  Grid Layout  -->
                 <Grid.RowDefinitions>
@@ -509,6 +509,7 @@
                     HorizontalAlignment="Center"
                     Background="Gold"
                     BorderThickness="0"
+                    Click="AbortInstallation_Click"
                     Content="Abort"
                     FontSize="16"
                     FontWeight="Bold"
@@ -591,7 +592,7 @@
             <Grid
                 x:Name="CompletionPage"
                 Grid.Row="1"
-                Visibility="Hidden">
+                Visibility="Collapsed">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -651,7 +652,7 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
-                        <RowDefinition />
+
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -663,6 +664,7 @@
                     <TextBlock
                         Grid.Row="0"
                         Grid.ColumnSpan="5"
+                        Margin="0,0,0,15"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="24"
@@ -684,6 +686,7 @@
                     Background="Transparent"
                     BorderBrush="#FFFFC97A"
                     BorderThickness="2"
+                    Click="RestartButton_Click"
                     Content="Restart"
                     FontSize="16"
                     FontWeight="Bold"
@@ -822,7 +825,7 @@
             <Grid
                 x:Name="AbortPage"
                 Grid.Row="1"
-                Visibility="Visible">
+                Visibility="Hidden">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -882,6 +885,7 @@
                     Background="Transparent"
                     BorderBrush="#FFFFC97A"
                     BorderThickness="2"
+                    Click="RestartButton_Click"
                     Content="Restart"
                     FontSize="16"
                     FontWeight="Bold"
@@ -953,6 +957,7 @@
                     Background="Transparent"
                     BorderBrush="#FF85FFEB"
                     BorderThickness="2"
+                    Click="CloseApp"
                     Content="No Restart"
                     FontSize="16"
                     FontWeight="Bold"
