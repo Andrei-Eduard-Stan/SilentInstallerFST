@@ -24,7 +24,7 @@ namespace SilentInstaller
             installationSteps.Add(new InstallationStep("Acrobat Reader", $"{installerPath}\\Acrobat\\acrsetup.exe","/sAll /rs /msi EULA_ACCEPT=YES"));
             installationSteps.Add(new InstallationStep("Google Chrome","msiexec", $"/i \"{installerPath}\\Chrome\\Installers\\GoogleChromeStandaloneEnterprise64.msi\" /quiet /norestart"));
             installationSteps.Add(new InstallationStep("GlobalProtect","msiexec", $"/i \"{installerPath}\\PaloAlto\\GlobalProtect64-6.0.1.msi\" /quiet /norestart"));
-            installationSteps.Add(new InstallationStep("SupportAssist","msiexec", $"/i {installerPath}\\SupportAssist\\SupportAssistx64-4.6.3.23467.msi\" /quiet /norestart"));
+            installationSteps.Add(new InstallationStep("SupportAssist","msiexec", $"/i \"{installerPath}\\SupportAssist\\SupportAssistx64-4.6.3.23467.msi\" /quiet /norestart"));
 
             if (category.Name == "MH Laptop") {
                 installationSteps.Add(new InstallationStep("Logmein MH","msiexec", $"/i \"{installerPath}\\LMI\\logmein.msi\", /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1"));
@@ -33,7 +33,7 @@ namespace SilentInstaller
             if (category.Name == "HO Laptop")
             {
                 installationSteps.Add(new InstallationStep("Logmein HO", "msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1"));
-                installationSteps.Add(new InstallationStep("Office Suite", $"{installerPath}\\Office\\setup.exe", $"/configure \"{installerPath}\\Office\\configuration-Office365-x64.xml\""));
+                installationSteps.Add(new InstallationStep("Office Suite", $"{installerPath}\\Office\\setup.exe", $"/configure \"{installerPath}\\Office\\configuration.xml\""));
                 installationSteps.Add(new InstallationStep("Mimecast","msiexec", $"/i \"{installerPath}\\Mimecast\\Mimecast.msi\" /quiet /norestart"));
             }
 
