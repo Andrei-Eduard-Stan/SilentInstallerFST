@@ -25,8 +25,8 @@ namespace SilentInstaller
         {
             installationSteps = new List<InstallationStep>();
             installationSteps.Add(new InstallationStep("Acrobat Reader", $"{installerPath}\\Acrobat\\acrsetup.exe","/sAll /rs /msi EULA_ACCEPT=YES", "data/acrobatreader.png"));
-            installationSteps.Add(new InstallationStep("Google Chrome","msiexec", $"/i \"{installerPath}\\Chrome\\Installers\\GoogleChromeStandaloneEnterprise64.msi\" /quiet /norestart", "data/chrome_logo.png"));
-            installationSteps.Add(new InstallationStep("GlobalProtect","msiexec", $"/i \"{installerPath}\\PaloAlto\\GlobalProtect64-6.0.1.msi\" /quiet /norestart","data/globalprotect.png"));
+            installationSteps.Add(new InstallationStep("Google Chrome", $"{installerPath}\\Chrome\\Installers\\ChromeSetup.exe", "/silent /install", "data/chrome_logo.png"));
+            installationSteps.Add(new InstallationStep("GlobalProtect","msiexec", $"/i \"{installerPath}\\PaloAlto\\GlobalProtect64-6.2.2.msi\" /quiet /norestart","data/globalprotect.png"));
             installationSteps.Add(new InstallationStep("SupportAssist","msiexec", $"/i \"{installerPath}\\SupportAssist\\SupportAssistx64-4.6.3.23467.msi\" /quiet /norestart", "data/dell.png"));
 
             if (category.Name == "MH Laptop") {
