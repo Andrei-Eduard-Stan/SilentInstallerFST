@@ -12,11 +12,14 @@
     <None Remove="data\acrobatreader.png" />
     <None Remove="data\background.jfif" />
     <None Remove="data\background.png" />
+    <None Remove="data\cancelledicon.png" />
     <None Remove="data\check.png" />
+    <None Remove="data\checkicon.png" />
     <None Remove="data\chrome_logo.png" />
     <None Remove="data\crackblue.png" />
     <None Remove="data\dell.png" />
     <None Remove="data\download.png" />
+    <None Remove="data\failicon.png" />
     <None Remove="data\fullers-logo.png" />
     <None Remove="data\girl.png" />
     <None Remove="data\girlmod.png" />
@@ -44,7 +47,13 @@
     <Resource Include="data\background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="data\cancelledicon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="data\check.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\checkicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="data\chrome_logo.png">
@@ -57,6 +66,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="data\download.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\failicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="data\fullers-logo.png">

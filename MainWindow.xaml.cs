@@ -8,10 +8,12 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using MahApps.Metro.Controls;
 
+
 namespace SilentInstaller
 {
     public partial class MainWindow
     {
+        private CancellationTokenSource cancellationTokenSource;
         private List<Category> Categories;
         private List<InstallationStep> installationSteps;
         private int currentStepIndex = 0;
@@ -41,27 +43,59 @@ namespace SilentInstaller
 
         private async void StartInstallation_Click(object sender, RoutedEventArgs e)
         {
+            cancellationTokenSource = new CancellationTokenSource();
+
             SelectionPage.Visibility = Visibility.Collapsed;
             InstallationPage.Visibility = Visibility.Visible;
 
             Category selectedCategory = Categories[currentCategoryIndex];
             DefineInstallationSteps(selectedCategory);
 
-            await InstallApplicationsAsync();
+            await InstallApplicationsAsync(cancellationTokenSource.Token);
+
         }
 
-        private async Task InstallApplicationsAsync()
+        private async Task InstallApplicationsAsync(CancellationToken token)
         {
+            List<InstallationStep> installedApps = new List<InstallationStep>();
+
             foreach (var step in installationSteps)
             {
+
+                if(cancellationTokenSource.Token.IsCancellationRequested)
+                {
+                    AppendLog("[INFO] Installation Aborted.");
+                    break;
+                }
                 UpdateUI(step.Name);
-                await RunInstallationProcessAsync(step);
+                await RunInstallationProcessAsync(step,token);
+                installedApps.Add(step);
+            }
+            // Move to completion page only if not cancelled
+            if (!token.IsCancellationRequested)
+            {
+                InstallationPage.Visibility = Visibility.Collapsed;
+                CompletionPage.Visibility = Visibility.Visible;
             }
 
-            // Move to completion page
-            InstallationPage.Visibility = Visibility.Collapsed;
-            CompletionPage.Visibility = Visibility.Visible;
+            UpdateInstalledApss(installedApps);
         }
+
+        private void AbortInstallation_Click(object sender, RoutedEventArgs e)
+        {
+            if (cancellationTokenSource != null)
+            {
+                cancellationTokenSource.Cancel(); // Signal cancellation
+            }
+
+            AppendLog("[INFO] Installation Aborted by user.");
+
+            // Return to the first panel
+            InstallationPage.Visibility = Visibility.Collapsed;
+            SelectionPage.Visibility = Visibility.Visible;
+        }
+
+
 
         private void UpdateUI(string appName)
         {
@@ -83,12 +117,15 @@ namespace SilentInstaller
                 });
             }
         }
-        private async Task RunInstallationProcessAsync(InstallationStep step)
+        private async Task RunInstallationProcessAsync(InstallationStep step, CancellationToken token)
         {
             await Task.Run(() =>
             {
                 try
                 {
+
+                    if (token.IsCancellationRequested) return; // Stop if cancelled
+
                     ProcessStartInfo psi = new ProcessStartInfo
                     {
                         FileName = step.Command,
@@ -107,6 +144,17 @@ namespace SilentInstaller
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
                     process.WaitForExit();
+                    // Wait for process to exit or cancel
+                    while (!process.HasExited)
+                    {
+                        if (token.IsCancellationRequested)
+                        {
+                            AppendLog($"[INFO] Aborting: {step.Name}");
+                            process.Kill(); // Force stop installation
+                            return;
+                        }
+                        Thread.Sleep(500); // Check every 500ms
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -224,6 +272,45 @@ namespace SilentInstaller
                 Grid.SetRow(appPanel, row);
                 Grid.SetColumn(appPanel, col);
                 IncludedAppsGrid.Children.Add(appPanel);
+            }
+        }
+
+        private void UpdateInstalledApss(List<InstallationStep> installedApps) {
+            InstalledAppsGrid.Children.Clear();
+            InstalledAppsGrid.RowDefinitions.Clear();
+            InstalledAppsGrid.ColumnDefinitions.Clear();
+
+            for (int i = 0; i < 2; i++)
+                InstalledAppsGrid.RowDefinitions.Add(new RowDefinition());
+            for (int i = 0; i < 5; i++)
+                InstalledAppsGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+            for (int i = 0; i < installedApps.Count && i < 10; i++) {
+                int row = i / 5;
+                int col = i % 5;
+
+                StackPanel appPanel = new StackPanel { Orientation = Orientation.Vertical, HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness() };
+                Image appImage = new Image
+                {
+                    Source = new System.Windows.Media.Imaging.BitmapImage(new Uri($"data/{installedApps[i].Name.ToLower().Replace(" ", "")}.png", UriKind.Relative)),
+                    Width = 30,
+                    Height = 30
+                };
+                TextBlock appName = new TextBlock
+                {
+                    Text = installedApps[i].Name,
+                    Foreground = System.Windows.Media.Brushes.White,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    FontSize = 12,
+                    TextWrapping = TextWrapping.Wrap,
+                    TextAlignment = TextAlignment.Center
+                };
+                appPanel.Children.Add(appImage);
+                appPanel.Children.Add(appName);
+
+                Grid.SetRow(appPanel, row);
+                Grid.SetColumn(appPanel, col);
+                InstalledAppsGrid.Children.Add(appPanel);
             }
         }
 

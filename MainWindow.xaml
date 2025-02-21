@@ -12,6 +12,7 @@
     AllowsTransparency="True"
     Background="Transparent"
     BorderThickness="0"
+    ResizeMode="NoResize"
     ShowTitleBar="False"
     WindowButtonCommandsOverlayBehavior="Never"
     WindowStyle="None"
@@ -78,7 +79,7 @@
             <Grid
                 x:Name="SelectionPage"
                 Grid.Row="1"
-                Visibility="Visible">
+                Visibility="Hidden">
 
                 <!--  Grid Layout  -->
                 <Grid.RowDefinitions>
@@ -136,7 +137,6 @@
                         Text="Select Setup Type:" />
                     <Button
                         Grid.Row="1"
-                        Grid.RowSpan="2"
                         Grid.Column="0"
                         Width="40"
                         Height="40"
@@ -148,7 +148,52 @@
                         Content="◀"
                         FontSize="24"
                         Foreground="White"
-                        Template="{StaticResource NoMouseOverButtonTemplate}" />
+                        RenderTransformOrigin="0.5,0.5"
+                        Template="{StaticResource NoMouseOverButtonTemplate}">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <!--  Add any actions you want to perform on mouse over here  -->
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                        To="1.2"
+                                                        Duration="0:0:0.1" />
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                        To="1.2"
+                                                        Duration="0:0:0.1" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                        To="1"
+                                                        Duration="0:0:0.1" />
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                        To="1"
+                                                        Duration="0:0:0.1" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                     <Grid Grid.Row="1" Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2*" />
@@ -180,12 +225,10 @@
 
                     <Button
                         Grid.Row="1"
-                        Grid.RowSpan="2"
                         Grid.Column="2"
                         Width="40"
                         Height="40"
-                        Margin="93,0,0,0"
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Background="Transparent"
                         BorderThickness="0"
@@ -193,7 +236,53 @@
                         Content="▶"
                         FontSize="24"
                         Foreground="White"
-                        Template="{StaticResource NoMouseOverButtonTemplate}" />
+                        RenderTransformOrigin="0.5,0.5"
+                        Template="{StaticResource NoMouseOverButtonTemplate}">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <!--  Add any actions you want to perform on mouse over here  -->
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                        To="1.2"
+                                                        Duration="0:0:0.1" />
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                        To="1.2"
+                                                        Duration="0:0:0.1" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                        To="1"
+                                                        Duration="0:0:0.1" />
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                        To="1"
+                                                        Duration="0:0:0.1" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
                     <TextBlock
                         x:Name="CategoryDescription"
                         Grid.Row="3"
@@ -391,15 +480,26 @@
                     TextAlignment="Center" />
 
                 <!--  Log Output  -->
-                <TextBox
-                    x:Name="OutputLogBox"
+                <Border
                     Grid.Row="4"
                     Grid.ColumnSpan="2"
-                    Width="500"
-                    Height="50"
-                    Margin="0,0,0,0"
-                    HorizontalAlignment="Center" />
-
+                    Width="400"
+                    Height="70"
+                    BorderBrush="White"
+                    BorderThickness="0.8"
+                    CornerRadius="8">
+                    <TextBox
+                        x:Name="OutputLogBox"
+                        Margin="0,0,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        FontSize="14px"
+                        Foreground="White"
+                        TextAlignment="Left"
+                        TextWrapping="NoWrap" />
+                </Border>
                 <!--  Abort Button  -->
                 <Button
                     Grid.Row="5"
@@ -526,7 +626,13 @@
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Source="/data/check.png" />
+                    <Image
+                        Grid.Column="0"
+                        Height="80"
+                        Margin="60"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Source="/data/checkicon.png" />
                     <TextBlock
                         Grid.Column="1"
                         VerticalAlignment="Center"
@@ -538,7 +644,6 @@
                 </Grid>
                 <!--  Included Apps  -->
                 <Grid
-                    x:Name="IncludedAppsList2"
                     Grid.Row="2"
                     Grid.Column="1"
                     Margin="10,5,10,5">
@@ -565,7 +670,7 @@
                         Foreground="White"
                         Text="Installed Applications:" />
                     <Grid
-                        x:Name="IncludedAppsGrid2"
+                        x:Name="InstalledAppsGrid"
                         Grid.Row="1"
                         Grid.RowSpan="2"
                         Grid.ColumnSpan="5" />
@@ -576,8 +681,9 @@
                     Width="100"
                     Height="40"
                     HorizontalAlignment="Center"
-                    Background="Green"
-                    BorderThickness="0"
+                    Background="Transparent"
+                    BorderBrush="#FFFFC97A"
+                    BorderThickness="2"
                     Content="Restart"
                     FontSize="16"
                     FontWeight="Bold"
@@ -600,14 +706,6 @@
                                     <Trigger.EnterActions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
-                                                    To="DarkGreen"
-                                                    Duration="0:0:0.15" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
-                                                    To="White"
-                                                    Duration="0:0:0.15" />
                                                 <DoubleAnimation
                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                     To="1.2"
@@ -623,14 +721,6 @@
                                     <Trigger.ExitActions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
-                                                    To="Green"
-                                                    Duration="0:0:0.3" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
-                                                    To="Black"
-                                                    Duration="0:0:0.3" />
                                                 <DoubleAnimation
                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                     To="1"
@@ -662,8 +752,9 @@
                     Width="100"
                     Height="40"
                     HorizontalAlignment="Center"
-                    Background="DeepSkyBlue"
-                    BorderThickness="0"
+                    Background="Transparent"
+                    BorderBrush="#FF85FFEB"
+                    BorderThickness="2"
                     Content="No Restart"
                     FontSize="16"
                     FontWeight="Bold"
@@ -686,14 +777,7 @@
                                     <Trigger.EnterActions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
-                                                    To="DarkRed"
-                                                    Duration="0:0:0.15" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
-                                                    To="White"
-                                                    Duration="0:0:0.15" />
+
                                                 <DoubleAnimation
                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                     To="1.2"
@@ -709,14 +793,204 @@
                                     <Trigger.ExitActions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
-                                                    To="Gold"
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                    To="1"
                                                     Duration="0:0:0.3" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
-                                                    To="Black"
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                    To="1"
                                                     Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
+
+                    <Button.Template>
+                        <StaticResource ResourceKey="NoMouseOverButtonTemplate" />
+                    </Button.Template>
+
+                    <Button.RenderTransform>
+                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                    </Button.RenderTransform>
+                </Button>
+            </Grid>
+            <!--  Page 3: Completion Screen  -->
+            <Grid
+                x:Name="AbortPage"
+                Grid.Row="1"
+                Visibility="Visible">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <!--  Logo & Title  -->
+                <Image
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Height="80"
+                    VerticalAlignment="Center"
+                    Source="data/fullers-logo.png" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="24"
+                    FontWeight="DemiBold"
+                    Foreground="White"
+                    Text="Silent Installer"
+                    TextAlignment="Center" />
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Column="0"
+                        Height="80"
+                        Margin="60"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Source="/data/cancelledicon.png" />
+                    <TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        Foreground="White"
+                        Text="Installation Aborted"
+                        TextAlignment="Left"
+                        TextWrapping="Wrap" />
+                </Grid>
+                <Button
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Width="100"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="#FFFFC97A"
+                    BorderThickness="2"
+                    Content="Restart"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    RenderTransformOrigin="0.5,0.5">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                    To="1.2"
+                                                    Duration="0:0:0.15" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                    To="1.2"
+                                                    Duration="0:0:0.15" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                    To="1"
+                                                    Duration="0:0:0.3" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                    To="1"
+                                                    Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
+
+                    <Button.Template>
+                        <StaticResource ResourceKey="NoMouseOverButtonTemplate" />
+                    </Button.Template>
+
+                    <Button.RenderTransform>
+                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                    </Button.RenderTransform>
+                </Button>
+
+                <Button
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Width="100"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="#FF85FFEB"
+                    BorderThickness="2"
+                    Content="No Restart"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    RenderTransformOrigin="0.5,0.5">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                    To="1.2"
+                                                    Duration="0:0:0.15" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                    To="1.2"
+                                                    Duration="0:0:0.15" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
                                                 <DoubleAnimation
                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                     To="1"
