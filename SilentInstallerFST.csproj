@@ -6,11 +6,21 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <Title>Silent Installer HO</Title>
+    <Authors>Andrei - Eduard Stan</Authors>
+    <Description>The Silent Installer is a Windows-based application designed to streamline the installation of multiple software applications in an automated, efficient, and user-friendly manner. It is particularly useful for IT departments, enabling quick deployment of predefined software configurations based on different device types and user needs.
+This tool ensures that essential applications are installed without requiring user interaction, making it ideal for new device setup, system reinstalls, and corporate standardization.
+</Description>
+    <Copyright>© 2025 Andrei-Eduard Stan. All rights reserved.</Copyright>
+    <PackageIcon>appicon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/Andrei-Eduard-Stan/SilentInstallerFST</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Andrei-Eduard-Stan/SilentInstallerFST</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>silentinstall; wfp; c#; appinstaller</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="data\acrobatreader.png" />
-    <None Remove="data\appicon.png" />
     <None Remove="data\background.jfif" />
     <None Remove="data\background.png" />
     <None Remove="data\cancelledicon.png" />
@@ -123,9 +133,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="data\appicon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
