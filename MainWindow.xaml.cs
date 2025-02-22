@@ -103,7 +103,8 @@ namespace SilentInstaller
         {
             AbortPage.Visibility=Visibility.Collapsed;
             CompletionPage.Visibility = Visibility.Collapsed;
-            InstallationPage.Visibility = Visibility.Visible;
+            InstallationPage.Visibility = Visibility.Collapsed;
+            SelectionPage.Visibility = Visibility.Visible;
         }
         private void RestartButton_Click(object sender, RoutedEventArgs e)
         {

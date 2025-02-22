@@ -13,12 +13,15 @@
     Padding="15px"
     AllowsTransparency="True"
     BorderThickness="0"
+    Foreground="Transparent"
+    Icon="/data/appicon.png"
+    NonActiveBorderBrush="#00808080"
+    NonActiveWindowTitleBrush="#00808080"
     ResizeMode="NoResize"
     ShowTitleBar="False"
     WindowButtonCommandsOverlayBehavior="Never"
     WindowStyle="None"
-    Icon="/data/appicon.png"
-    mc:Ignorable="av" Foreground="Transparent" NonActiveBorderBrush="#00808080" NonActiveWindowTitleBrush="#00808080">
+    mc:Ignorable="av">
 
     <mah:MetroWindow.Resources>
 
@@ -53,8 +56,7 @@
                 Grid.RowSpan="2"
                 Background="Transparent"
                 BorderBrush="Gray"
-                BorderThickness="2"
- />
+                BorderThickness="2" />
             <!--  Custom Title Bar  -->
             <Grid
                 Height="40"
@@ -510,12 +512,14 @@
                     Width="100"
                     Height="40"
                     HorizontalAlignment="Center"
-                    Background="Gold"
-                    BorderThickness="0"
+                    Background="Transparent"
+                    BorderBrush="Gold"
+                    BorderThickness="2"
                     Click="AbortInstallation_Click"
                     Content="Abort"
                     FontSize="16"
                     FontWeight="Bold"
+                    Foreground="White"
                     RenderTransformOrigin="0.5,0.5">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
@@ -534,14 +538,7 @@
                                     <Trigger.EnterActions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
-                                                    To="DarkRed"
-                                                    Duration="0:0:0.15" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
-                                                    To="White"
-                                                    Duration="0:0:0.15" />
+
                                                 <DoubleAnimation
                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                     To="1.2"
@@ -557,14 +554,6 @@
                                     <Trigger.ExitActions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
-                                                    To="Gold"
-                                                    Duration="0:0:0.3" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
-                                                    To="Black"
-                                                    Duration="0:0:0.3" />
                                                 <DoubleAnimation
                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                     To="1"
@@ -761,6 +750,7 @@
                     Background="Transparent"
                     BorderBrush="#FF85FFEB"
                     BorderThickness="2"
+                    Click="GoBack_Click"
                     Content="No Restart"
                     FontSize="16"
                     FontWeight="Bold"
