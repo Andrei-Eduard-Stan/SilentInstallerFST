@@ -3,6 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:local="clr-namespace:SilentInstaller"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Silent Installer"
@@ -10,13 +12,13 @@
     Height="500"
     Padding="15px"
     AllowsTransparency="True"
-    Background="Transparent"
     BorderThickness="0"
     ResizeMode="NoResize"
     ShowTitleBar="False"
     WindowButtonCommandsOverlayBehavior="Never"
     WindowStyle="None"
-    mc:Ignorable="av">
+    Icon="/data/appicon.png"
+    mc:Ignorable="av" Foreground="Transparent" NonActiveBorderBrush="#00808080" NonActiveWindowTitleBrush="#00808080">
 
     <mah:MetroWindow.Resources>
 
@@ -40,7 +42,7 @@
     <Grid>
         <Grid>
             <Grid.Background>
-                <ImageBrush ImageSource="/data/girlmod.png" />
+                <ImageBrush ImageSource="/data/senomy.png" Stretch="UniformToFill" />
             </Grid.Background>
 
             <Grid.RowDefinitions>
@@ -51,8 +53,8 @@
                 Grid.RowSpan="2"
                 Background="Transparent"
                 BorderBrush="Gray"
-                BorderThickness="0.3"
-                CornerRadius="10" />
+                BorderThickness="2"
+ />
             <!--  Custom Title Bar  -->
             <Grid
                 Height="40"
@@ -341,11 +343,11 @@
                     VerticalAlignment="Center"
                     Background="#00DDDDDD"
                     BorderBrush="White"
+                    BorderThickness="2"
                     Click="StartInstallation_Click"
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="White"
-                    BorderThickness="2"
                     RenderTransformOrigin="0.5,0.5">
 
                     <Button.Resources>

@@ -20,6 +20,9 @@ namespace SilentInstaller
         private int currentStepIndex = 0;
         private int currentCategoryIndex = 0;
         private string installerPath = @"C:\\Users\\asta\\OneDrive - Fuller Smith and Turner\\Documents\\projects\\silentinstaller";
+
+
+
         
         private void DefineInstallationSteps(Category category)
         {
