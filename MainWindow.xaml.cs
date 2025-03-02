@@ -122,9 +122,39 @@ namespace SilentInstaller
             }
         }
 
-        private void UpdateDrivers_Click(object sender,RoutedEventArgs e) {
+        private void UpdateDrivers_Click(object sender, RoutedEventArgs e) {
+            try {
 
-        
+                ProcessStartInfo psi = new ProcessStartInfo {
+
+                    FileName = $"{installerPath}\\SupportAssist\\Dell-Command-Update-Windows-Universal-Application_9M35M_WIN_5.4.0_A00.EXE",
+                    Arguments = "/applyUpdates -silent",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+
+                Process process = new Process { StartInfo = psi };
+                process.Start();
+                AppendLog("[INFO] Starting Driver Updates...");
+                SelectionPage.Visibility = Visibility.Collapsed;
+                InstallationPage.Visibility = Visibility.Visible;
+                // Capture output (optional, useful for debugging)
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
+
+                process.WaitForExit();
+
+                // Log the results or display message (optional)
+                AppendLog("[INFO] Driver Updates Completed...");
+                InstallationPage.Visibility = Visibility.Collapsed;
+                CompletionPage.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                AppendLog("[INFO] Error Installing Driver Updates");
+            }
         }
 
         private void UpdateUI(string appName)

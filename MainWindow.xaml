@@ -335,11 +335,101 @@
                         Grid.RowSpan="2"
                         Grid.ColumnSpan="5" />
                 </Grid>
+                <!--  UpdateDriver Button  -->
+                <Button
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Width="200"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="#00DDDDDD"
+                    BorderBrush="White"
+                    BorderThickness="2"
+                    Click="UpdateDrivers_Click"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    RenderTransformOrigin="0.5,0.5">
+
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                    To="White"
+                                                    Duration="0:0:0.15" />
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    To="Gray"
+                                                    Duration="0:0:0.15" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                    To="1.2"
+                                                    Duration="0:0:0.15" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                    To="1.2"
+                                                    Duration="0:0:0.15" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                    To="#00DDDDDD"
+                                                    Duration="0:0:0.3" />
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    To="White"
+                                                    Duration="0:0:0.3" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                    To="1"
+                                                    Duration="0:0:0.3" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                    To="1"
+                                                    Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
+
+                    <Button.Template>
+                        <StaticResource ResourceKey="NoMouseOverButtonTemplate" />
+                    </Button.Template>
+
+                    <Button.RenderTransform>
+                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                    </Button.RenderTransform>
+                    <TextBlock Text="Update Drivers" />
+                </Button>
                 <!--  Start Button  -->
                 <Button
                     Grid.Row="3"
-                    Grid.ColumnSpan="2"
-                    Width="100"
+                    Grid.Column="1"
+                    Width="200"
                     Height="40"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
