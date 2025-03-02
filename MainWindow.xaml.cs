@@ -41,8 +41,10 @@ namespace SilentInstaller
                 installationSteps.Add(new InstallationStep("Logmein HO","msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
                 installationSteps.Add(new InstallationStep("Office Suite", $"{installerPath}\\Office\\setup.exe", $"/configure \"{installerPath}\\Office\\Latest.xml\"", "data/officesetup.png" ));
                 installationSteps.Add(new InstallationStep("Mimecast","msiexec", $"/i \"{installerPath}\\Mimecast\\Mimecast.msi\" /quiet /norestart", "data/Mimecast_Logo.png"));
-                installationSteps.Add(new InstallationStep("Teams", $"{installerPath}\\Teams\\teamsbootstrapper.exe", "-p -o \"C:\\Installers\\MSTeams-x64.msix\"", "data/Teams.png"));
+                installationSteps.Add(new InstallationStep("Teams", $"{installerPath}\\Teams\\teamsbootstrapper.exe", "-p -o \"C:\\Installers\\MSTeams-x64.msix\"", "data/teams.png"));
             }
+
+            installationSteps.Add(new InstallationStep("Dell DCU", $"{installerPath}\\SupportAssist\\Dell-Command-Update-Windows-Universal-Application_9M35M_WIN_5.4.0_A00.EXE", "s", "data/dell.png"));
 
         }
 
@@ -227,6 +229,7 @@ namespace SilentInstaller
                     new App("GlobalProtect", "data/globalprotect.png"),
                     new App("Logmein", "data/logmein.png"),
                     new App("SupportAssist", "data/dell.png"),
+                    new App("Dell DCU", "data/dell.png"),
                 }),
                 new Category("HO Laptop", "data/hologo.png", "Default software for the laptops used by Head Office.", new List<App>
                 {
@@ -237,7 +240,8 @@ namespace SilentInstaller
                     new App("SupportAssist", "data/dell.png"),
                     new App("Office Suite", "data/officesetup.png"),
                     new App("Mimecast", "data/Mimecast_Logo.png"),
-                    new App("Teams", "data/Teams.png")
+                    new App("Teams", "data/teams.png"),
+                    new App("Dell DCU", "data/dell.png"),
                 })
                 // Add more categories as needed
             };
