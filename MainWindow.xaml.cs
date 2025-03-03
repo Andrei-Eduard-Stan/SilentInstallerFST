@@ -41,7 +41,7 @@ namespace SilentInstaller
                 installationSteps.Add(new InstallationStep("Logmein HO","msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
                 installationSteps.Add(new InstallationStep("Office Suite", $"{installerPath}\\Office\\setup.exe", $"/configure \"{installerPath}\\Office\\Latest.xml\"", "data/officesetup.png" ));
                 installationSteps.Add(new InstallationStep("Mimecast","msiexec", $"/i \"{installerPath}\\Mimecast\\Mimecast.msi\" /quiet /norestart", "data/Mimecast_Logo.png"));
-                installationSteps.Add(new InstallationStep("Teams", $"{installerPath}\\Teams\\teamsbootstrapper.exe", $"-p -o \"{installerPath}\\Teams\\MSTeams-x64.msix\"", "data/teams.png"));
+                installationSteps.Add(new InstallationStep("Teams", $"{installerPath}\\Teams\\teamsbootstrapper.exe", $"-p -o \"{installerPath}\\Teams\\MSTeams-x64.msix\"", "data/Microsoft_Office_Teams_Logo_512px.png"));
             }
 
             installationSteps.Add(new InstallationStep("Dell DCU", $"{installerPath}\\SupportAssist\\Dell-Command-Update-Windows-Universal-Application_9M35M_WIN_5.4.0_A00.EXE", "/s", "data/dell.png"));
@@ -122,40 +122,33 @@ namespace SilentInstaller
             }
         }
 
-        private void UpdateDrivers_Click(object sender, RoutedEventArgs e) {
-            try {
+        private void UpdateDrivers_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AppendLog("[INFO] Opening Command Prompt for Dell driver updates...");
 
-                ProcessStartInfo psi = new ProcessStartInfo {
-
-                    FileName = $"{installerPath}\\SupportAssist\\Dell-Command-Update-Windows-Universal-Application_9M35M_WIN_5.4.0_A00.EXE",
-                    Arguments = "/applyUpdates -silent",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments = "/k \"cd /d \"C:\\Program Files\\Dell\\CommandUpdate\" && dcu-cli.exe /applyUpdates -silent\"",
+                    UseShellExecute = true,  // Ensures CMD is visible
+                    CreateNoWindow = false   // Keeps CMD window open for debugging
                 };
 
-                Process process = new Process { StartInfo = psi };
-                process.Start();
-                AppendLog("[INFO] Starting Driver Updates...");
+                Process.Start(psi);
+
+                // Optionally update UI
                 SelectionPage.Visibility = Visibility.Collapsed;
                 InstallationPage.Visibility = Visibility.Visible;
-                // Capture output (optional, useful for debugging)
-                string output = process.StandardOutput.ReadToEnd();
-                string error = process.StandardError.ReadToEnd();
-
-                process.WaitForExit();
-
-                // Log the results or display message (optional)
-                AppendLog("[INFO] Driver Updates Completed...");
-                InstallationPage.Visibility = Visibility.Collapsed;
-                CompletionPage.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
-                AppendLog("[INFO] Error Installing Driver Updates");
+                AppendLog($"[ERROR] Exception: {ex.Message}");
             }
         }
+
+
 
         private void UpdateUI(string appName)
         {
@@ -275,7 +268,7 @@ namespace SilentInstaller
                     new App("SupportAssist", "data/dell.png"),
                     new App("Office Suite", "data/officesetup.png"),
                     new App("Mimecast", "data/Mimecast_Logo.png"),
-                    new App("Teams", "data/teams.png"),
+                    new App("Teams", "data/Microsoft_Office_Teams_Logo_512px.png"),
                     new App("Dell DCU", "data/dell.png"),
                 })
                 // Add more categories as needed
