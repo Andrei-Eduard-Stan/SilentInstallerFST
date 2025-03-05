@@ -17,6 +17,7 @@ This tool ensures that essential applications are installed without requiring us
     <RepositoryUrl>https://github.com/Andrei-Eduard-Stan/SilentInstallerFST</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>silentinstall; wfp; c#; appinstaller</PackageTags>
+    <ApplicationIcon>data\silentinstaller.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +32,7 @@ This tool ensures that essential applications are installed without requiring us
     <None Remove="data\dell.png" />
     <None Remove="data\download.png" />
     <None Remove="data\failicon.png" />
+    <None Remove="data\fstlogo.jpg" />
     <None Remove="data\fullers-logo.png" />
     <None Remove="data\girl.png" />
     <None Remove="data\girlmod.png" />
@@ -40,10 +42,17 @@ This tool ensures that essential applications are installed without requiring us
     <None Remove="data\mhlogo.png" />
     <None Remove="data\mhlogo.webp" />
     <None Remove="data\mhlogotrsp.png" />
+    <None Remove="data\microsoft-teams-icon-transparent-background-free-png.webp" />
     <None Remove="data\Microsoft_Office_Teams_Logo_512px.png" />
     <None Remove="data\Mimecast_Logo.png" />
     <None Remove="data\officesetup.png" />
     <None Remove="data\senomy.png" />
+    <None Remove="data\silentinstaller.ico" />
+    <None Remove="data\teams.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="data\silentinstaller.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,6 +96,9 @@ This tool ensures that essential applications are installed without requiring us
     <Resource Include="data\failicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="data\fstlogo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="data\fullers-logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -114,6 +126,9 @@ This tool ensures that essential applications are installed without requiring us
     <Resource Include="data\mhlogotrsp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="data\microsoft-teams-icon-transparent-background-free-png.webp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="data\Microsoft_Office_Teams_Logo_512px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -124,6 +139,12 @@ This tool ensures that essential applications are installed without requiring us
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="data\senomy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\silentinstaller.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\teams.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

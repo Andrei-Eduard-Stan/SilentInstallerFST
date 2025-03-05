@@ -99,6 +99,7 @@ namespace SilentInstaller
 
             // Return to the first panel
             InstallationPage.Visibility = Visibility.Collapsed;
+            CompletionPage.Visibility = Visibility.Collapsed;
             AbortPage.Visibility = Visibility.Visible;
         }
 
@@ -122,31 +123,71 @@ namespace SilentInstaller
             }
         }
 
-        private void UpdateDrivers_Click(object sender, RoutedEventArgs e)
+
+
+        private async void UpdateDrivers_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                AppendLog("[INFO] Opening Command Prompt for Dell driver updates...");
+                AppendLog("[INFO] Checking for Dell driver updates...");
 
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
-                    Arguments = "/k \"cd /d \"C:\\Program Files\\Dell\\CommandUpdate\" && dcu-cli.exe /applyUpdates -silent\"",
-                    UseShellExecute = true,  // Ensures CMD is visible
-                    CreateNoWindow = false   // Keeps CMD window open for debugging
+                    Arguments = "/c cd /d \"C:\\Program Files\\Dell\\CommandUpdate\" && dcu-cli.exe /scan && dcu-cli.exe /applyUpdates -silent",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
                 };
 
-                Process.Start(psi);
+                using (Process process = new Process { StartInfo = psi })
+                {
+                    process.Start();
 
-                // Optionally update UI
-                SelectionPage.Visibility = Visibility.Collapsed;
-                InstallationPage.Visibility = Visibility.Visible;
+                    // Switch UI to installation page while update is running
+                    SelectionPage.Visibility = Visibility.Collapsed;
+                    InstallationPage.Visibility = Visibility.Visible;
+
+                    // Read output asynchronously (REAL-TIME)
+                    Task outputTask = Task.Run(async () =>
+                    {
+                        while (!process.StandardOutput.EndOfStream)
+                        {
+                            string line = await process.StandardOutput.ReadLineAsync();
+                            if (!string.IsNullOrWhiteSpace(line))
+                            {
+                                AppendLog($"[INFO] {line}"); // Show real-time progress
+                            }
+
+                            await Task.Delay(3000); // Wait 3 seconds before reading next line
+                        }
+                    });
+
+                    await Task.WhenAll(outputTask, process.WaitForExitAsync()); // Wait for process to complete
+
+                    // Once the process is done, switch to completion page
+                    InstallationPage.Visibility = Visibility.Collapsed;
+                    AbortPage.Visibility = Visibility.Collapsed;
+                    CompletionPage.Visibility = Visibility.Visible;
+
+                    string error = await process.StandardError.ReadToEndAsync();
+                    if (!string.IsNullOrWhiteSpace(error))
+                    {
+                        AppendLog($"[ERROR] {error}");
+                    }
+                    else
+                    {
+                        AppendLog("[INFO] Driver Updates Completed.");
+                    }
+                }
             }
             catch (Exception ex)
             {
                 AppendLog($"[ERROR] Exception: {ex.Message}");
             }
         }
+
 
 
 
