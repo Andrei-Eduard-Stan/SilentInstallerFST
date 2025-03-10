@@ -19,7 +19,7 @@ namespace SilentInstaller
         private List<InstallationStep> installationSteps;
         private int currentStepIndex = 0;
         private int currentCategoryIndex = 0;
-        private string installerPath = @"C:\\Users\\asta\\OneDrive - Fuller Smith and Turner\\Documents\\projects\\silentinstaller";
+        private string installerPath = @"\\ph-svr-file\Software\Andrei";
 
 
 
