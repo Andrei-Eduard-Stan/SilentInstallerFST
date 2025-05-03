@@ -114,4 +114,4 @@ Think of this repo as a blueprint—not a plug-and-play product.
 ## 💬 Contact
 
 Want to talk internal tooling? Automation? Infra from the inside out?  
-[github.com/andreistan](https://github.com/andreistan) • Ready to scale what others overlook.
+[github.com/Andrei-EduardStan](https://github.com/Andrei-Eduard-Stan) • Ready to scale what others overlook.
