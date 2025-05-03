@@ -6,7 +6,7 @@
 > Author: Andrei
 
 ---
-![[silentinstaller_mainmenu.png]]
+
 ## 📄 1. Overview
 
 The **Silent Installer** is a Windows-based application for streamlined software deployment. It automates multi-app installations based on device categories, ideal for IT-managed onboarding, reinstalls, and corporate standards—without licensing costs.
