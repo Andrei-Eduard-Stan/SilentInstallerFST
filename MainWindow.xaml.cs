@@ -19,7 +19,7 @@ namespace SilentInstaller
         private List<InstallationStep> installationSteps;
         private int currentStepIndex = 0;
         private int currentCategoryIndex = 0;
-        private string installerPath = @"C:\\Users\\asta\\OneDrive - Fuller Smith and Turner\\Documents\\projects\\silentinstaller";
+        private string installerPath = @"ADD INSTALLER PATH";
 
 
 
@@ -27,20 +27,21 @@ namespace SilentInstaller
         private void DefineInstallationSteps(Category category)
         {
             installationSteps = new List<InstallationStep>();
-            installationSteps.Add(new InstallationStep("Acrobat Reader", $"{installerPath}\\Acrobat\\acrsetup.exe","/sAll /rs /msi EULA_ACCEPT=YES", "data/acrobatreader.png"));
-            installationSteps.Add(new InstallationStep("Google Chrome","msiexec", $"/i \"{installerPath}\\Chrome\\Installers\\GoogleChromeStandaloneEnterprise64.msi\" /quiet /norestart", "data/chrome_logo.png"));
-            installationSteps.Add(new InstallationStep("GlobalProtect","msiexec", $"/i \"{installerPath}\\PaloAlto\\GlobalProtect64-6.0.1.msi\" /quiet /norestart","data/globalprotect.png"));
-            installationSteps.Add(new InstallationStep("SupportAssist","msiexec", $"/i \"{installerPath}\\SupportAssist\\SupportAssistx64-4.6.3.23467.msi\" /quiet /norestart", "data/dell.png"));
+            installationSteps.Add(new InstallationStep("Acrobat Reader", $"{installerPath}\\Acrobat\\acrsetup.exe", "/sAll /rs /msi EULA_ACCEPT=YES", "data/acrobatreader.png"));
+            installationSteps.Add(new InstallationStep("Google Chrome", "msiexec", $"/i \"{installerPath}\\Chrome\\Installers\\GoogleChromeStandaloneEnterprise64.msi\" /quiet /norestart", "data/chrome_logo.png"));
+            installationSteps.Add(new InstallationStep("GlobalProtect", "msiexec", $"/i \"{installerPath}\\PaloAlto\\GlobalProtect64-6.0.1.msi\" /quiet /norestart", "data/globalprotect.png"));
+            installationSteps.Add(new InstallationStep("SupportAssist", "msiexec", $"/i \"{installerPath}\\SupportAssist\\SupportAssistx64-4.6.3.23467.msi\" /quiet /norestart", "data/dell.png"));
 
-            if (category.Name == "MH Laptop") {
-                installationSteps.Add(new InstallationStep("Logmein MH","msiexec", $"/i \"{installerPath}\\LMI\\logmein.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
+            if (category.Name == "MH Laptop")
+            {
+                installationSteps.Add(new InstallationStep("Logmein MH", "msiexec", $"/i \"{installerPath}\\LMI\\logmein.msi\" /quiet [ADD DEPLOY ID] INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
             }
 
             if (category.Name == "HO Laptop")
             {
-                installationSteps.Add(new InstallationStep("Logmein HO","msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
-                installationSteps.Add(new InstallationStep("Office Suite", $"{installerPath}\\Office\\setup.exe", $"/configure \"{installerPath}\\Office\\Latest.xml\"", "data/officesetup.png" ));
-                installationSteps.Add(new InstallationStep("Mimecast","msiexec", $"/i \"{installerPath}\\Mimecast\\Mimecast.msi\" /quiet /norestart", "data/Mimecast_Logo.png"));
+                installationSteps.Add(new InstallationStep("Logmein HO", "msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet [ADD DEPLOY ID] INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
+                installationSteps.Add(new InstallationStep("Office Suite", $"{installerPath}\\Office\\setup.exe", $"/configure \"{installerPath}\\Office\\Latest.xml\"", "data/officesetup.png"));
+                installationSteps.Add(new InstallationStep("Mimecast", "msiexec", $"/i \"{installerPath}\\Mimecast\\Mimecast.msi\" /quiet /norestart", "data/Mimecast_Logo.png"));
                 installationSteps.Add(new InstallationStep("Teams", $"{installerPath}\\Teams\\teamsbootstrapper.exe", $"-p -o \"{installerPath}\\Teams\\MSTeams-x64.msix\"", "data/Microsoft_Office_Teams_Logo_512px.png"));
             }
 
@@ -62,6 +63,7 @@ namespace SilentInstaller
 
         }
 
+        // Asynchronous installer loop that runs each app installation step.
         private async Task InstallApplicationsAsync(CancellationToken token)
         {
             List<InstallationStep> installedApps = new List<InstallationStep>();
@@ -69,13 +71,15 @@ namespace SilentInstaller
             foreach (var step in installationSteps)
             {
 
-                if(cancellationTokenSource.Token.IsCancellationRequested)
+                if (cancellationTokenSource.Token.IsCancellationRequested)
                 {
+                    // Log status or output text to the on-screen log view
                     AppendLog("[INFO] Installation Aborted.");
                     break;
                 }
+                // Refresh UI to reflect current step
                 UpdateUI(step.Name);
-                await RunInstallationProcessAsync(step,token);
+                await RunInstallationProcessAsync(step, token);
                 installedApps.Add(step);
             }
             // Move to completion page only if not cancelled
@@ -88,6 +92,7 @@ namespace SilentInstaller
             UpdateInstalledApss(installedApps);
         }
 
+        // Allows the user to abort installation mid-process.
         private void AbortInstallation_Click(object sender, RoutedEventArgs e)
         {
             if (cancellationTokenSource != null)
@@ -95,6 +100,7 @@ namespace SilentInstaller
                 cancellationTokenSource.Cancel(); // Signal cancellation
             }
 
+            // Log status or output text to the on-screen log view
             AppendLog("[INFO] Installation Aborted by user.");
 
             // Return to the first panel
@@ -105,32 +111,38 @@ namespace SilentInstaller
 
         private void GoBack_Click(object sender, RoutedEventArgs e)
         {
-            AbortPage.Visibility=Visibility.Collapsed;
+            AbortPage.Visibility = Visibility.Collapsed;
             CompletionPage.Visibility = Visibility.Collapsed;
             InstallationPage.Visibility = Visibility.Collapsed;
             SelectionPage.Visibility = Visibility.Visible;
         }
+        // Executes a system restart.
         private void RestartButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 System.Diagnostics.Process.Start("shutdown.exe", "-r -t 0");
+                // Log status or output text to the on-screen log view
                 AppendLog("[INFO] Restarting PC in 5 seconds...");
             }
             catch (Exception ex)
             {
+                // Log status or output text to the on-screen log view
                 AppendLog($"[ERROR] Failed to restart: {ex.Message}");
             }
         }
 
 
 
+        // Triggers Dell DCU CLI update silently.
         private async void UpdateDrivers_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                // Log status or output text to the on-screen log view
                 AppendLog("[INFO] Checking for Dell driver updates...");
 
+                // Prepare the process launch settings for the installer command
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
@@ -157,9 +169,11 @@ namespace SilentInstaller
                             string line = await process.StandardOutput.ReadLineAsync();
                             if (!string.IsNullOrWhiteSpace(line))
                             {
+                                // Log status or output text to the on-screen log view
                                 AppendLog($"[INFO] {line}"); // Show real-time progress
                             }
 
+                            // Pause between installations for stability or pacing
                             await Task.Delay(3000); // Wait 3 seconds before reading next line
                         }
                     });
@@ -174,16 +188,19 @@ namespace SilentInstaller
                     string error = await process.StandardError.ReadToEndAsync();
                     if (!string.IsNullOrWhiteSpace(error))
                     {
+                        // Log status or output text to the on-screen log view
                         AppendLog($"[ERROR] {error}");
                     }
                     else
                     {
+                        // Log status or output text to the on-screen log view
                         AppendLog("[INFO] Driver Updates Completed.");
                     }
                 }
             }
             catch (Exception ex)
             {
+                // Log status or output text to the on-screen log view
                 AppendLog($"[ERROR] Exception: {ex.Message}");
             }
         }
@@ -191,6 +208,8 @@ namespace SilentInstaller
 
 
 
+        // Updates UI with the current application being installed.
+        // Refresh UI to reflect current step
         private void UpdateUI(string appName)
         {
             Dispatcher.Invoke(() =>
@@ -200,6 +219,8 @@ namespace SilentInstaller
                 OutputLogBox.ScrollToEnd();
             });
         }
+        // Appends messages to the output log box.
+        // Log status or output text to the on-screen log view
         private void AppendLog(string message)
         {
             if (!string.IsNullOrEmpty(message))
@@ -211,6 +232,7 @@ namespace SilentInstaller
                 });
             }
         }
+        // Runs the command for a specific application installation step.
         private async Task RunInstallationProcessAsync(InstallationStep step, CancellationToken token)
         {
             await Task.Run(() =>
@@ -220,6 +242,7 @@ namespace SilentInstaller
 
                     if (token.IsCancellationRequested) return; // Stop if cancelled
 
+                    // Prepare the process launch settings for the installer command
                     ProcessStartInfo psi = new ProcessStartInfo
                     {
                         FileName = step.Command,
@@ -231,18 +254,22 @@ namespace SilentInstaller
                     };
 
                     Process process = new Process { StartInfo = psi };
+                    // Log status or output text to the on-screen log view
                     process.OutputDataReceived += (sender, e) => AppendLog(e.Data);
+                    // Log status or output text to the on-screen log view
                     process.ErrorDataReceived += (sender, e) => AppendLog(e.Data);
 
                     process.Start();
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
+                    // Wait for the installer to complete execution before continuing
                     process.WaitForExit();
                     // Wait for process to exit or cancel
                     while (!process.HasExited)
                     {
                         if (token.IsCancellationRequested)
                         {
+                            // Log status or output text to the on-screen log view
                             AppendLog($"[INFO] Aborting: {step.Name}");
                             process.Kill(); // Force stop installation
                             return;
@@ -252,11 +279,13 @@ namespace SilentInstaller
                 }
                 catch (Exception ex)
                 {
+                    // Log status or output text to the on-screen log view
                     AppendLog($"[ERROR] {step.Name} failed: {ex.Message}");
                 }
             });
         }
 
+        // Main window constructor, initializes categories and UI.
         public MainWindow()
         {
             InitializeComponent();
@@ -266,6 +295,7 @@ namespace SilentInstaller
 
 
         // Smooth Fade-In on Start
+        // Plays a fade-in animation when the window loads.
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var fadeIn = (Storyboard)FindResource("FadeIn");
@@ -273,6 +303,7 @@ namespace SilentInstaller
         }
 
         // Move Window (Title Bar Dragging)
+        // Enables window dragging functionality.
         public void MoveWindow(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -282,11 +313,13 @@ namespace SilentInstaller
         }
 
         // Close Application
+        // Closes the application when close button is clicked.
         private void CloseApp(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        // Sets up the installation categories and associated applications.
         private void InitializeCategories()
         {
             Categories = new List<Category>
@@ -318,6 +351,7 @@ namespace SilentInstaller
 
 
 
+        // Updates the UI to reflect the selected installation category.
         private void UpdateCategoryDisplay()
         {
             if (Categories.Count == 0) return;
@@ -325,10 +359,11 @@ namespace SilentInstaller
             Category currentCategory = Categories[currentCategoryIndex];
             CategoryImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(currentCategory.ImagePath, UriKind.RelativeOrAbsolute));
             CategoryTitle.Text = currentCategory.Name;
-            CategoryDescription.Text= currentCategory.Description;
+            CategoryDescription.Text = currentCategory.Description;
             UpdateIncludedApps(currentCategory.Apps);
         }
 
+        // Populates the UI with the selected category's applications.
         private void UpdateIncludedApps(List<App> apps)
         {
             IncludedAppsGrid.Children.Clear();
@@ -358,7 +393,7 @@ namespace SilentInstaller
                     Text = apps[i].Name,
                     Foreground = System.Windows.Media.Brushes.White,
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    FontSize=12,
+                    FontSize = 12,
                     TextWrapping = TextWrapping.Wrap,
                     TextAlignment = TextAlignment.Center
                 };
@@ -372,7 +407,9 @@ namespace SilentInstaller
             }
         }
 
-        private void UpdateInstalledApss(List<InstallationStep> installedApps) {
+        // Visually displays the list of successfully installed applications.
+        private void UpdateInstalledApss(List<InstallationStep> installedApps)
+        {
             InstalledAppsGrid.Children.Clear();
             InstalledAppsGrid.RowDefinitions.Clear();
             InstalledAppsGrid.ColumnDefinitions.Clear();
@@ -382,7 +419,8 @@ namespace SilentInstaller
             for (int i = 0; i < 5; i++)
                 InstalledAppsGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
-            for (int i = 0; i < installedApps.Count && i < 10; i++) {
+            for (int i = 0; i < installedApps.Count && i < 10; i++)
+            {
                 int row = i / 5;
                 int col = i % 5;
 
@@ -411,18 +449,21 @@ namespace SilentInstaller
             }
         }
 
+        // Switches to the next category in the list.
         private void NextCategory_Click(object sender, RoutedEventArgs e)
         {
             currentCategoryIndex = (currentCategoryIndex + 1) % Categories.Count;
             ApplyFadeAnimation();
         }
 
+        // Switches to the previous category in the list.
         private void PreviousCategory_Click(object sender, RoutedEventArgs e)
         {
             currentCategoryIndex = (currentCategoryIndex - 1 + Categories.Count) % Categories.Count;
             ApplyFadeAnimation();
         }
 
+        // Animates the transition between categories.
         private void ApplyFadeAnimation()
         {
             DoubleAnimation fadeOut = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.3));
@@ -444,6 +485,7 @@ namespace SilentInstaller
         }
     }
 
+    // Data model for a device category.
     public class Category
     {
         public string Name { get; set; }
@@ -460,6 +502,7 @@ namespace SilentInstaller
         }
     }
 
+    // Data model for an installation step including command and icon.
     public class InstallationStep
     {
         public string Name { get; set; }
@@ -476,14 +519,15 @@ namespace SilentInstaller
         }
     }
 
+    // Visual representation of an application in the UI.
     public class App
     {
         public string Name { get; set; }
         public string LogoPath { get; set; }
 
-        public string installPath { get; set; } 
+        public string installPath { get; set; }
 
-        public string installCommands { get; set; } 
+        public string installCommands { get; set; }
 
         public App(string name, string logoPath)
         {

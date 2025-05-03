@@ -26,46 +26,54 @@
     <mah:MetroWindow.Resources>
 
         <!--  Button Template for No MouseOver Effect  -->
-        <ControlTemplate x:Key="NoMouseOverButtonTemplate" TargetType="{x:Type Button}">
+        <ControlTemplate x:Key="NoMouseOverButtonTemplate"
+                TargetType="{x:Type Button}">
             <Border
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
-                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Border>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="{x:Static SystemColors.ControlLightBrush}" />
-                    <Setter Property="Foreground" Value="{x:Static SystemColors.GrayTextBrush}" />
+                <Trigger Property="IsEnabled"
+                        Value="False">
+                    <Setter Property="Background"
+                            Value="{x:Static SystemColors.ControlLightBrush}"/>
+                    <Setter Property="Foreground"
+                            Value="{x:Static SystemColors.GrayTextBrush}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </mah:MetroWindow.Resources>
 
+    <!-- Main container layout (Grid) to hold UI elements -->
     <Grid>
         <Grid>
             <Grid.Background>
-                <ImageBrush ImageSource="/data/senomy.png" Stretch="UniformToFill" />
+                <!-- Image UI element, likely used for visual branding or step icons -->
+                <ImageBrush ImageSource="/data/senomy.png"
+                        Stretch="UniformToFill"/>
             </Grid.Background>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="40px" />
-                <RowDefinition />
+                <RowDefinition Height="40px"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Border
                 Grid.RowSpan="2"
                 Background="Transparent"
                 BorderBrush="Gray"
-                BorderThickness="2" />
+                BorderThickness="2"/>
             <!--  Custom Title Bar  -->
             <Grid
                 Height="40"
                 VerticalAlignment="Top"
                 MouseDown="MoveWindow">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="4*" />
-                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock
                     Grid.Column="0"
@@ -73,7 +81,7 @@
                     VerticalAlignment="Center"
                     FontSize="16"
                     Foreground="White"
-                    Text="Silent Installer" />
+                    Text="Silent Installer"/>
                 <Button
                     Grid.Column="1"
                     HorizontalAlignment="Left"
@@ -108,10 +116,12 @@
                     Click="CloseApp"
                     Content="✖"
                     Foreground="White"
-                    Template="{StaticResource NoMouseOverButtonTemplate}" />
+                    Template="{StaticResource NoMouseOverButtonTemplate}"/>
+                <!-- End of main Grid container -->
             </Grid>
 
             <!--  Page 1: Selection Screen  -->
+            <!-- Main container layout (Grid) to hold UI elements -->
             <Grid
                 x:Name="SelectionPage"
                 Grid.Row="1"
@@ -119,23 +129,24 @@
 
                 <!--  Grid Layout  -->
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="3*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
                 <!--  Logo & Title  -->
+                <!-- Image UI element, likely used for visual branding or step icons -->
                 <Image
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
                     Height="80"
                     VerticalAlignment="Center"
-                    Source="data/fullers-logo.png" />
+                    Source="data/fullers-logo.png"/>
                 <TextBlock
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
@@ -145,7 +156,7 @@
                     FontWeight="DemiBold"
                     Foreground="White"
                     Text="Silent Installer"
-                    TextAlignment="Center" />
+                    TextAlignment="Center"/>
 
                 <!--  Carousel Container  -->
                 <Grid
@@ -153,14 +164,14 @@
                     Grid.Column="0"
                     Margin="10,5,10,5">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="2*" />
-                        <RowDefinition />
+                        <RowDefinition/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Grid.Row="0"
@@ -170,7 +181,7 @@
                         FontSize="24"
                         FontWeight="DemiBold"
                         Foreground="White"
-                        Text="Select Setup Type:" />
+                        Text="Select Setup Type:"/>
                     <Button
                         Grid.Row="1"
                         Grid.Column="0"
@@ -190,39 +201,53 @@
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="RenderTransform">
                                     <Setter.Value>
-                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                        <ScaleTransform ScaleX="1"
+                                                ScaleY="1"/>
                                     </Setter.Value>
                                 </Setter>
 
                                 <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger Property="IsMouseOver"
+                                            Value="True">
                                         <!--  Add any actions you want to perform on mouse over here  -->
                                         <Trigger.EnterActions>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <BeginStoryboard>
+                                                <!-- Animation definition block (Storyboard) -->
                                                 <Storyboard>
                                                     <DoubleAnimation
+<!-- Animation definition block (Storyboard) -->
                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                         To="1.2"
                                                         Duration="0:0:0.1" />
-                                                    <DoubleAnimation
-                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                        <DoubleAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
                                                         To="1.2"
                                                         Duration="0:0:0.1" />
+                                                            <!-- Animation definition block (Storyboard) -->
                                                 </Storyboard>
+                                                <!-- Animation definition block (Storyboard) -->
                                             </BeginStoryboard>
                                         </Trigger.EnterActions>
                                         <Trigger.ExitActions>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <BeginStoryboard>
+                                                <!-- Animation definition block (Storyboard) -->
                                                 <Storyboard>
                                                     <DoubleAnimation
+<!-- Animation definition block (Storyboard) -->
                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                         To="1"
                                                         Duration="0:0:0.1" />
-                                                    <DoubleAnimation
-                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                        <DoubleAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
                                                         To="1"
                                                         Duration="0:0:0.1" />
+                                                            <!-- Animation definition block (Storyboard) -->
                                                 </Storyboard>
+                                                <!-- Animation definition block (Storyboard) -->
                                             </BeginStoryboard>
                                         </Trigger.ExitActions>
                                     </Trigger>
@@ -230,13 +255,17 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid Grid.Row="1"
+                            Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="2*" />
-                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
+                        <!-- Image UI element, likely used for visual branding or step icons -->
                         <!--  Category Image  -->
+                        <!-- Image UI element, likely used for visual branding or step icons -->
                         <Image
+<!-- Image UI element, likely used for visual branding or step icons -->
                             x:Name="CategoryImage"
                             Grid.Row="0"
                             MaxWidth="150"
@@ -246,17 +275,18 @@
                             VerticalAlignment="Center"
                             Stretch="Uniform" />
 
-                        <!--  Category Title  -->
-                        <TextBlock
-                            x:Name="CategoryTitle"
-                            Grid.Row="1"
-                            Width="Auto"
-                            HorizontalAlignment="Center"
-                            FontSize="18"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
+                            <!--  Category Title  -->
+                            <TextBlock
+                                x:Name="CategoryTitle"
+                                Grid.Row="1"
+                                Width="Auto"
+                                HorizontalAlignment="Center"
+                                FontSize="18"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap"/>
+                            <!-- End of main Grid container -->
                     </Grid>
 
                     <Button
@@ -278,39 +308,53 @@
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="RenderTransform">
                                     <Setter.Value>
-                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                        <ScaleTransform ScaleX="1"
+                                                ScaleY="1"/>
                                     </Setter.Value>
                                 </Setter>
 
                                 <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger Property="IsMouseOver"
+                                            Value="True">
                                         <!--  Add any actions you want to perform on mouse over here  -->
                                         <Trigger.EnterActions>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <BeginStoryboard>
+                                                <!-- Animation definition block (Storyboard) -->
                                                 <Storyboard>
                                                     <DoubleAnimation
+<!-- Animation definition block (Storyboard) -->
                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                         To="1.2"
                                                         Duration="0:0:0.1" />
-                                                    <DoubleAnimation
-                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                        <DoubleAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
                                                         To="1.2"
                                                         Duration="0:0:0.1" />
+                                                            <!-- Animation definition block (Storyboard) -->
                                                 </Storyboard>
+                                                <!-- Animation definition block (Storyboard) -->
                                             </BeginStoryboard>
                                         </Trigger.EnterActions>
                                         <Trigger.ExitActions>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <BeginStoryboard>
+                                                <!-- Animation definition block (Storyboard) -->
                                                 <Storyboard>
                                                     <DoubleAnimation
+<!-- Animation definition block (Storyboard) -->
                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
                                                         To="1"
                                                         Duration="0:0:0.1" />
-                                                    <DoubleAnimation
-                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                        <DoubleAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
                                                         To="1"
                                                         Duration="0:0:0.1" />
+                                                            <!-- Animation definition block (Storyboard) -->
                                                 </Storyboard>
+                                                <!-- Animation definition block (Storyboard) -->
                                             </BeginStoryboard>
                                         </Trigger.ExitActions>
                                     </Trigger>
@@ -330,27 +374,29 @@
                         FontSize="18"
                         Foreground="White"
                         TextAlignment="Center"
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap"/>
+                    <!-- End of main Grid container -->
                 </Grid>
 
                 <!--  Included Apps  -->
+                <!-- Main container layout (Grid) to hold UI elements -->
                 <Grid
                     x:Name="IncludedAppsList"
                     Grid.Row="2"
                     Grid.Column="1"
                     Margin="10,5,10,5">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Grid.Row="0"
@@ -360,12 +406,13 @@
                         FontSize="24"
                         FontWeight="DemiBold"
                         Foreground="White"
-                        Text="Included Applications:" />
+                        Text="Included Applications:"/>
                     <Grid
                         x:Name="IncludedAppsGrid"
                         Grid.Row="1"
                         Grid.RowSpan="2"
-                        Grid.ColumnSpan="5" />
+                        Grid.ColumnSpan="5"/>
+                    <!-- End of main Grid container -->
                 </Grid>
                 <!--  UpdateDriver Button  -->
                 <Button
@@ -385,45 +432,60 @@
 
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="0,0,0,0" />
+                            <Setter Property="CornerRadius"
+                                    Value="0,0,0,0"/>
                         </Style>
 
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="RenderTransform">
                                 <Setter.Value>
-                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    <ScaleTransform ScaleX="1"
+                                            ScaleY="1"/>
                                 </Setter.Value>
                             </Setter>
 
                             <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger Property="IsMouseOver"
+                                        Value="True">
                                     <Trigger.EnterActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.15" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="Gray"
                                                     Duration="0:0:0.15" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.EnterActions>
 
                                     <Trigger.ExitActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="#00DDDDDD"
                                                     Duration="0:0:0.3" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.3" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>
                                 </Trigger>
@@ -432,14 +494,16 @@
                     </Button.Resources>
 
                     <Button.Template>
-                        <StaticResource ResourceKey="NoMouseOverButtonTemplate" />
+                        <StaticResource ResourceKey="NoMouseOverButtonTemplate"/>
                     </Button.Template>
 
                     <Button.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                        <ScaleTransform ScaleX="1"
+                                ScaleY="1"/>
                     </Button.RenderTransform>
-                    <TextBlock Text="Update Drivers" />
+                    <TextBlock Text="Update Drivers"/>
                 </Button>
+                <!-- Start Installation Button -->
                 <!--  Start Button  -->
                 <Button
                     Grid.Row="3"
@@ -458,45 +522,60 @@
 
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="0,0,0,0" />
+                            <Setter Property="CornerRadius"
+                                    Value="0,0,0,0"/>
                         </Style>
 
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="RenderTransform">
                                 <Setter.Value>
-                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    <ScaleTransform ScaleX="1"
+                                            ScaleY="1"/>
                                 </Setter.Value>
                             </Setter>
 
                             <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger Property="IsMouseOver"
+                                        Value="True">
                                     <Trigger.EnterActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.15" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="Gray"
                                                     Duration="0:0:0.15" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.EnterActions>
 
                                     <Trigger.ExitActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="#00DDDDDD"
                                                     Duration="0:0:0.3" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.3" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>
                                 </Trigger>
@@ -505,18 +584,21 @@
                     </Button.Resources>
 
                     <Button.Template>
-                        <StaticResource ResourceKey="NoMouseOverButtonTemplate" />
+                        <StaticResource ResourceKey="NoMouseOverButtonTemplate"/>
                     </Button.Template>
 
                     <Button.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                        <ScaleTransform ScaleX="1"
+                                ScaleY="1"/>
                     </Button.RenderTransform>
-                    <TextBlock Text="Start" />
+                    <TextBlock Text="Start"/>
                 </Button>
 
+                <!-- End of main Grid container -->
             </Grid>
 
             <!--  Page 2: Installation Progress  -->
+            <!-- Main container layout (Grid) to hold UI elements -->
             <Grid
                 x:Name="InstallationPage"
                 Grid.Row="1"
@@ -524,25 +606,26 @@
                 Visibility="Hidden">
                 <!--  Grid Layout  -->
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
                 <!--  Logo & Title  -->
+                <!-- Image UI element, likely used for visual branding or step icons -->
                 <Image
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
                     Height="80"
                     VerticalAlignment="Center"
-                    Source="data/fullers-logo.png" />
+                    Source="data/fullers-logo.png"/>
                 <TextBlock
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
@@ -552,7 +635,7 @@
                     FontWeight="DemiBold"
                     Foreground="White"
                     Text="Silent Installer"
-                    TextAlignment="Center" />
+                    TextAlignment="Center"/>
 
 
                 <!--  Progress Bar  -->
@@ -560,7 +643,7 @@
                     Grid.Row="3"
                     Grid.ColumnSpan="2"
                     Foreground="White"
-                    IsActive="True" />
+                    IsActive="True"/>
 
                 <!--  Status Message  -->
                 <TextBlock
@@ -570,7 +653,7 @@
                     VerticalAlignment="Center"
                     FontSize="14"
                     Foreground="White"
-                    TextAlignment="Center" />
+                    TextAlignment="Center"/>
 
                 <!--  Log Output  -->
                 <Border
@@ -592,8 +675,9 @@
                         FontSize="14px"
                         Foreground="White"
                         TextAlignment="Left"
-                        TextWrapping="NoWrap" />
+                        TextWrapping="NoWrap"/>
                 </Border>
+                <!-- Abort Installation Button -->
                 <!--  Abort Button  -->
                 <Button
                     Grid.Row="5"
@@ -613,45 +697,60 @@
                     RenderTransformOrigin="0.5,0.5">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="0,0,0,0" />
+                            <Setter Property="CornerRadius"
+                                    Value="0,0,0,0"/>
                         </Style>
 
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="RenderTransform">
                                 <Setter.Value>
-                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    <ScaleTransform ScaleX="1"
+                                            ScaleY="1"/>
                                 </Setter.Value>
                             </Setter>
 
                             <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger Property="IsMouseOver"
+                                        Value="True">
                                     <Trigger.EnterActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.15" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="Gray"
                                                     Duration="0:0:0.15" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.EnterActions>
 
                                     <Trigger.ExitActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="#00DDDDDD"
                                                     Duration="0:0:0.3" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.3" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>
                                 </Trigger>
@@ -660,39 +759,43 @@
                     </Button.Resources>
 
                     <Button.Template>
-                        <StaticResource ResourceKey="NoMouseOverButtonTemplate" />
+                        <StaticResource ResourceKey="NoMouseOverButtonTemplate"/>
                     </Button.Template>
 
                     <Button.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                        <ScaleTransform ScaleX="1"
+                                ScaleY="1"/>
                     </Button.RenderTransform>
                 </Button>
+                <!-- End of main Grid container -->
             </Grid>
 
             <!--  Page 3: Completion Screen  -->
+            <!-- Main container layout (Grid) to hold UI elements -->
             <Grid
                 x:Name="CompletionPage"
                 Grid.Row="1"
                 Visibility="Collapsed">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="2*" />
-                    <RowDefinition />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
                 <!--  Logo & Title  -->
+                <!-- Image UI element, likely used for visual branding or step icons -->
                 <Image
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
                     Height="80"
                     VerticalAlignment="Center"
-                    Source="data/fullers-logo.png" />
+                    Source="data/fullers-logo.png"/>
                 <TextBlock
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
@@ -702,19 +805,20 @@
                     FontWeight="DemiBold"
                     Foreground="White"
                     Text="Silent Installer"
-                    TextAlignment="Center" />
+                    TextAlignment="Center"/>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
+                    <!-- Image UI element, likely used for visual branding or step icons -->
                     <Image
                         Grid.Column="0"
                         Height="80"
                         Margin="60"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Source="/data/checkicon.png" />
+                        Source="/data/checkicon.png"/>
                     <TextBlock
                         Grid.Column="1"
                         VerticalAlignment="Center"
@@ -722,25 +826,27 @@
                         Foreground="White"
                         Text="Installation Successful"
                         TextAlignment="Left"
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap"/>
+                    <!-- End of main Grid container -->
                 </Grid>
                 <!--  Included Apps  -->
+                <!-- Main container layout (Grid) to hold UI elements -->
                 <Grid
                     Grid.Row="2"
                     Grid.Column="1"
                     Margin="10,5,10,5">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
 
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Grid.Row="0"
@@ -751,12 +857,13 @@
                         FontSize="24"
                         FontWeight="DemiBold"
                         Foreground="White"
-                        Text="Installed Applications:" />
+                        Text="Installed Applications:"/>
                     <Grid
                         x:Name="InstalledAppsGrid"
                         Grid.Row="1"
                         Grid.RowSpan="2"
-                        Grid.ColumnSpan="5" />
+                        Grid.ColumnSpan="5"/>
+                    <!-- End of main Grid container -->
                 </Grid>
                 <Button
                     Grid.Row="4"
@@ -768,6 +875,7 @@
                     Background="Transparent"
                     BorderBrush="Gray"
                     BorderThickness="0,1,1,0"
+<!-- Restart System Button -->
                     Click="RestartButton_Click"
                     Content="Restart"
                     FontSize="16"
@@ -776,45 +884,60 @@
                     RenderTransformOrigin="0.5,0.5">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="0,0,0,0" />
+                            <Setter Property="CornerRadius"
+                                    Value="0,0,0,0"/>
                         </Style>
 
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="RenderTransform">
                                 <Setter.Value>
-                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    <ScaleTransform ScaleX="1"
+                                            ScaleY="1"/>
                                 </Setter.Value>
                             </Setter>
 
                             <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger Property="IsMouseOver"
+                                        Value="True">
                                     <Trigger.EnterActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.15" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="Gray"
                                                     Duration="0:0:0.15" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.EnterActions>
 
                                     <Trigger.ExitActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="#00DDDDDD"
                                                     Duration="0:0:0.3" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.3" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>
                                 </Trigger>
@@ -823,11 +946,12 @@
                     </Button.Resources>
 
                     <Button.Template>
-                        <StaticResource ResourceKey="NoMouseOverButtonTemplate" />
+                        <StaticResource ResourceKey="NoMouseOverButtonTemplate"/>
                     </Button.Template>
 
                     <Button.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                        <ScaleTransform ScaleX="1"
+                                ScaleY="1"/>
                     </Button.RenderTransform>
                 </Button>
 
@@ -849,45 +973,60 @@
                     RenderTransformOrigin="0.5,0.5">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="0,0,0,0" />
+                            <Setter Property="CornerRadius"
+                                    Value="0,0,0,0"/>
                         </Style>
 
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="RenderTransform">
                                 <Setter.Value>
-                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    <ScaleTransform ScaleX="1"
+                                            ScaleY="1"/>
                                 </Setter.Value>
                             </Setter>
 
                             <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger Property="IsMouseOver"
+                                        Value="True">
                                     <Trigger.EnterActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.15" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="Gray"
                                                     Duration="0:0:0.15" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.EnterActions>
 
                                     <Trigger.ExitActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="#00DDDDDD"
                                                     Duration="0:0:0.3" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.3" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>
                                 </Trigger>
@@ -896,38 +1035,42 @@
                     </Button.Resources>
 
                     <Button.Template>
-                        <StaticResource ResourceKey="NoMouseOverButtonTemplate" />
+                        <StaticResource ResourceKey="NoMouseOverButtonTemplate"/>
                     </Button.Template>
 
                     <Button.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                        <ScaleTransform ScaleX="1"
+                                ScaleY="1"/>
                     </Button.RenderTransform>
                 </Button>
+                <!-- End of main Grid container -->
             </Grid>
             <!--  Page 3: Completion Screen  -->
+            <!-- Main container layout (Grid) to hold UI elements -->
             <Grid
                 x:Name="AbortPage"
                 Grid.Row="1"
                 Visibility="Hidden">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="2*" />
-                    <RowDefinition />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
                 <!--  Logo & Title  -->
+                <!-- Image UI element, likely used for visual branding or step icons -->
                 <Image
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
                     Height="80"
                     VerticalAlignment="Center"
-                    Source="data/fullers-logo.png" />
+                    Source="data/fullers-logo.png"/>
                 <TextBlock
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
@@ -937,19 +1080,20 @@
                     FontWeight="DemiBold"
                     Foreground="White"
                     Text="Silent Installer"
-                    TextAlignment="Center" />
+                    TextAlignment="Center"/>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
+                    <!-- Image UI element, likely used for visual branding or step icons -->
                     <Image
                         Grid.Column="0"
                         Height="80"
                         Margin="60"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Source="/data/cancelledicon.png" />
+                        Source="/data/cancelledicon.png"/>
                     <TextBlock
                         Grid.Column="1"
                         VerticalAlignment="Center"
@@ -957,7 +1101,8 @@
                         Foreground="White"
                         Text="Installation Aborted"
                         TextAlignment="Left"
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap"/>
+                    <!-- End of main Grid container -->
                 </Grid>
                 <Button
                     Grid.Row="4"
@@ -969,6 +1114,7 @@
                     Background="Transparent"
                     BorderBrush="Gray"
                     BorderThickness="0,1,1,0"
+<!-- Restart System Button -->
                     Click="RestartButton_Click"
                     Content="Restart"
                     FontSize="16"
@@ -977,45 +1123,60 @@
                     RenderTransformOrigin="0.5,0.5">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="0,0,0,0" />
+                            <Setter Property="CornerRadius"
+                                    Value="0,0,0,0"/>
                         </Style>
 
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="RenderTransform">
                                 <Setter.Value>
-                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    <ScaleTransform ScaleX="1"
+                                            ScaleY="1"/>
                                 </Setter.Value>
                             </Setter>
 
                             <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger Property="IsMouseOver"
+                                        Value="True">
                                     <Trigger.EnterActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.15" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="Gray"
                                                     Duration="0:0:0.15" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.EnterActions>
 
                                     <Trigger.ExitActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="#00DDDDDD"
                                                     Duration="0:0:0.3" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.3" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>
                                 </Trigger>
@@ -1024,11 +1185,12 @@
                     </Button.Resources>
 
                     <Button.Template>
-                        <StaticResource ResourceKey="NoMouseOverButtonTemplate" />
+                        <StaticResource ResourceKey="NoMouseOverButtonTemplate"/>
                     </Button.Template>
 
                     <Button.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                        <ScaleTransform ScaleX="1"
+                                ScaleY="1"/>
                     </Button.RenderTransform>
                 </Button>
 
@@ -1050,45 +1212,60 @@
                     RenderTransformOrigin="0.5,0.5">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="0,0,0,0" />
+                            <Setter Property="CornerRadius"
+                                    Value="0,0,0,0"/>
                         </Style>
 
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="RenderTransform">
                                 <Setter.Value>
-                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    <ScaleTransform ScaleX="1"
+                                            ScaleY="1"/>
                                 </Setter.Value>
                             </Setter>
 
                             <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger Property="IsMouseOver"
+                                        Value="True">
                                     <Trigger.EnterActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.15" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="Gray"
                                                     Duration="0:0:0.15" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.EnterActions>
 
                                     <Trigger.ExitActions>
+                                        <!-- Animation definition block (Storyboard) -->
                                         <BeginStoryboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                             <Storyboard>
                                                 <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
                                                     Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                                     To="#00DDDDDD"
                                                     Duration="0:0:0.3" />
-                                                <ColorAnimation
-                                                    Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                    <ColorAnimation
+<!-- Animation definition block (Storyboard) -->
+                                                        Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                                     To="White"
                                                     Duration="0:0:0.3" />
+                                                        <!-- Animation definition block (Storyboard) -->
                                             </Storyboard>
+                                            <!-- Animation definition block (Storyboard) -->
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>
                                 </Trigger>
@@ -1097,14 +1274,18 @@
                     </Button.Resources>
 
                     <Button.Template>
-                        <StaticResource ResourceKey="NoMouseOverButtonTemplate" />
+                        <StaticResource ResourceKey="NoMouseOverButtonTemplate"/>
                     </Button.Template>
 
                     <Button.RenderTransform>
-                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                        <ScaleTransform ScaleX="1"
+                                ScaleY="1"/>
                     </Button.RenderTransform>
                 </Button>
+                <!-- End of main Grid container -->
             </Grid>
+            <!-- End of main Grid container -->
         </Grid>
+        <!-- End of main Grid container -->
     </Grid>
 </mah:MetroWindow>
