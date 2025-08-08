@@ -133,8 +133,25 @@ namespace SilentInstaller
         }
 
 
+<<<<<<< Updated upstream
 
         // Triggers Dell DCU CLI update silently.
+=======
+                private string GetDeviceModel()
+        {
+            try
+            {
+                using (var searcher = new System.Management.ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystemProduct"))
+                {
+                    foreach (var obj in searcher.Get())
+                    {
+                        return obj["Version"]?.ToString() ?? "";
+                    }
+                }
+            }
+            catch { return ""; }
+        }
+>>>>>>> Stashed changes
         private async void UpdateDrivers_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -290,9 +307,48 @@ namespace SilentInstaller
         {
             InitializeComponent();
             InitializeCategories();
-            UpdateCategoryDisplay();
+
+            string[] args = Environment.GetCommandLineArgs();
+            bool isSilent = args.Contains("--auto");
+
+            if (isSilent)
+            {
+                this.Hide(); // Hide GUI
+
+                string model = GetDeviceModel().ToLower();
+                Category defaultCategory;
+
+                if (model.Contains("latitude"))
+                    defaultCategory = Categories.FirstOrDefault(c => c.Name == "MH Laptop");
+                else if (model.Contains("pro") || model.Contains("vostro") || model.Contains("xps"))
+                    defaultCategory = Categories.FirstOrDefault(c => c.Name == "HO Laptop");
+                else
+                    defaultCategory = Categories[0]; // fallback
+
+                DefineInstallationSteps(defaultCategory);
+                _ = InstallApplicationsAsync(new CancellationTokenSource().Token); // fire and forget
+            }
+            else
+            {
+                UpdateCategoryDisplay(); // normal UI mode
+            }
         }
 
+        private async void StartSilentInstallation()
+        {
+            cancellationTokenSource = new CancellationTokenSource();
+
+            // Choose a default category for silent mode (edit if needed)
+            Category defaultCategory = Categories.FirstOrDefault(c => c.Name == "MH Laptop") ?? Categories[0];
+
+            DefineInstallationSteps(defaultCategory);
+
+            await InstallApplicationsAsync(cancellationTokenSource.Token);
+
+            // Optional: restart or close
+            Process.Start("shutdown.exe", "-r -t 15 -c \"Apps Installed. Restarting in 15 seconds...\"");
+            Application.Current.Shutdown();
+        }
 
         // Smooth Fade-In on Start
         // Plays a fade-in animation when the window loads.
