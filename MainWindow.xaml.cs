@@ -134,9 +134,12 @@ namespace SilentInstaller
 
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
         // Triggers Dell DCU CLI update silently.
 =======
+=======
+>>>>>>> Stashed changes
                 private string GetDeviceModel()
         {
             try
@@ -151,6 +154,9 @@ namespace SilentInstaller
             }
             catch { return ""; }
         }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         private async void UpdateDrivers_Click(object sender, RoutedEventArgs e)
         {
