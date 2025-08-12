@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using MahApps.Metro.Controls;
+using System.Management;
 
 
 namespace SilentInstaller
@@ -19,7 +20,7 @@ namespace SilentInstaller
         private List<InstallationStep> installationSteps;
         private int currentStepIndex = 0;
         private int currentCategoryIndex = 0;
-        private string installerPath = @"ADD INSTALLER PATH";
+        private string installerPath = @"D:\";
 
 
 
@@ -34,12 +35,12 @@ namespace SilentInstaller
 
             if (category.Name == "MH Laptop")
             {
-                installationSteps.Add(new InstallationStep("Logmein MH", "msiexec", $"/i \"{installerPath}\\LMI\\logmein.msi\" /quiet [ADD DEPLOY ID] INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
+                installationSteps.Add(new InstallationStep("Logmein MH", "msiexec", $"/i \"{installerPath}\\LMI\\logmein.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
             }
 
             if (category.Name == "HO Laptop")
             {
-                installationSteps.Add(new InstallationStep("Logmein HO", "msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet [ADD DEPLOY ID] INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
+                installationSteps.Add(new InstallationStep("Logmein HO", "msiexec", $"/i \"{installerPath}\\LMI\\LMI Head Office.msi\" /quiet DEPLOYID=01_p7xqfoq7wc6kh6vcw4d007hp3hb1mgk5bm79z INSTALLMETHOD=5 FQDNDESC=1", "data/logmein.png"));
                 installationSteps.Add(new InstallationStep("Office Suite", $"{installerPath}\\Office\\setup.exe", $"/configure \"{installerPath}\\Office\\Latest.xml\"", "data/officesetup.png"));
                 installationSteps.Add(new InstallationStep("Mimecast", "msiexec", $"/i \"{installerPath}\\Mimecast\\Mimecast.msi\" /quiet /norestart", "data/Mimecast_Logo.png"));
                 installationSteps.Add(new InstallationStep("Teams", $"{installerPath}\\Teams\\teamsbootstrapper.exe", $"-p -o \"{installerPath}\\Teams\\MSTeams-x64.msix\"", "data/Microsoft_Office_Teams_Logo_512px.png"));
@@ -131,16 +132,7 @@ namespace SilentInstaller
                 AppendLog($"[ERROR] Failed to restart: {ex.Message}");
             }
         }
-
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
-        // Triggers Dell DCU CLI update silently.
-=======
-=======
->>>>>>> Stashed changes
-                private string GetDeviceModel()
+        private string GetDeviceModel()
         {
             try
             {
@@ -152,12 +144,14 @@ namespace SilentInstaller
                     }
                 }
             }
-            catch { return ""; }
+            catch
+            {
+                return "";
+            }
+
+            return ""; // <- This fixes the warning
         }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
         private async void UpdateDrivers_Click(object sender, RoutedEventArgs e)
         {
             try
